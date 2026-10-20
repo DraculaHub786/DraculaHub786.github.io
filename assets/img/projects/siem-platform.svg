@@ -1,14 +1,19 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200">
+<svg xmlns="http://www.w3.org/2000/svg" width="320" height="180" viewBox="0 0 320 180" role="img" aria-label="Security">
   <defs>
-    <linearGradient id="g7" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#B99A6E"/>
+    <linearGradient id="bg6" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#8A6A45"/>
       <stop offset="100%" stop-color="#E8913A"/>
     </linearGradient>
+    <radialGradient id="gl6" cx="30%" cy="20%" r="75%">
+      <stop offset="0%" stop-color="#fff" stop-opacity=".22"/>
+      <stop offset="100%" stop-color="#fff" stop-opacity="0"/>
+    </radialGradient>
   </defs>
-  <rect width="200" height="200" fill="url(#g7)" rx="16"/>
-  <rect x="30" y="50" width="140" height="100" rx="8" fill="rgba(0,0,0,0.55)"/>
-  <rect x="40" y="60" width="120" height="10" rx="5" fill="rgba(255,255,255,0.3)"/>
-  <rect x="40" y="85" width="80" height="10" rx="5" fill="rgba(255,255,255,0.2)"/>
-  <rect x="40" y="110" width="100" height="10" rx="5" fill="rgba(255,255,255,0.15)"/>
-  <path d="M100 140 L140 140 L140 160 L60 160 Z" fill="rgba(255,255,255,0.2)"/>
+  <rect width="320" height="180" fill="url(#bg6)"/>
+  <rect width="320" height="180" fill="url(#gl6)"/>
+  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M100 92h22l10-26 16 52 12-34 10 20 8-12h42" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" opacity=".9"/>
+    <circle cx="100" cy="92" r="4" fill="#fff"/><circle cx="220" cy="92" r="4" fill="#fff"/></g>
+  <text x="18" y="164" font-family="Inter,system-ui,sans-serif" font-size="10" font-weight="600" letter-spacing="1.6" fill="#fff" opacity=".62">SECURITY</text>
+  <text x="302" y="164" text-anchor="end" font-family="Georgia,serif" font-size="12" font-weight="600" fill="#fff" opacity=".38">D786</text>
 </svg>

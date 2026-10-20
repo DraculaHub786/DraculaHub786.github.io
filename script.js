@@ -1,319 +1,371 @@
-/* --------------------------------------------------------------
-   Portfolio interactions — DraculaHub786
-   -------------------------------------------------------------- */
+/* ==========================================================================
+   DraculaHub786 — Portfolio interactions
+   ========================================================================== */
 
-// Global state
+const $  = (sel, root = document) => root.querySelector(sel);
+const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
+
+const FILTER_MAP = {
+  Security: 'security',
+  Crypto:   'security',
+  AI:       'ai',
+  Apps:     'apps',
+  Web:      'apps'
+};
+
+/* Filter groups, and the label each card wears — kept in step with the
+   category label baked into the tile artwork. */
+const CATEGORY_LABEL = {
+  Security: 'Security',
+  Crypto:   'Crypto',
+  AI:       'AI & Data',
+  Apps:     'Apps',
+  Web:      'Web'
+};
+
+const labelOf = (p) => CATEGORY_LABEL[p.category] || p.category;
+
+const SKILL_GROUPS = [
+  { name: 'Languages',         icon: 'M8 6l-5 6 5 6M16 6l5 6-5 6',               members: ['Python', 'JavaScript', 'TypeScript', 'Dart', 'Go', 'HTML', 'Flutter'] },
+  { name: 'Backend & UI',      icon: 'M4 7h16M4 12h16M4 17h10',                   members: ['Flask', 'FastAPI', 'Next.js', 'React', 'Socket.IO', 'Streamlit'] },
+  { name: 'Data & Infra',      icon: 'M12 3l8 4.5v9L12 21l-8-4.5v-9L12 3z',        members: ['MongoDB', 'Firestore', 'Docker', 'Nginx', 'Ethereum', 'Hugging Face'] },
+  { name: 'Security & Crypto', icon: 'M12 3l7 3v6c0 4.2-3 7.4-7 9-4-1.8-7-9-7-9V6l7-3z', members: ['cryptography', 'encryption', 'hashing', 'security', 'WebRTC'] },
+  { name: 'Tooling',           icon: 'M14 7a4 4 0 11-4 4l-6 6v2h2l6-6a4 4 0 014-6z', members: ['CLI', 'VS Code', 'yt-dlp', 'automation'] },
+  { name: 'Product Work',      icon: 'M12 3l2.5 5.5L20 10l-4 4 .9 5.5L12 16.9 7.1 19.5 8 14l-4-4 5.5-1.5z', members: ['downloading', 'wellbeing', 'AI concierge', 'web'] }
+];
+
 const state = {
   projects: [],
-  currentFilter: 'all',
-  skills: new Set(),
   reducedMotion: window.matchMedia('(prefers-reduced-motion: reduce)').matches
 };
 
-/* Category → filter group mapping
-   Security & Crypto = 'security'
-   AI & Data        = 'ai'
-   Apps & Web       = 'apps'
-*/
-const FILTER_MAP = {
-  'Security': 'security',
-  'Crypto': 'security',
-  'AI': 'ai',
-  'Apps': 'apps',
-  'Web': 'apps'
-};
+/* --------------------------------------------------------------------------
+   Utilities
+   -------------------------------------------------------------------------- */
+const esc = (str) => String(str)
+  .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+  .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
 
-/* --------------------------------------------------------------
-   Helpers
-   -------------------------------------------------------------- */
-const $ = (sel, root = document) => root.querySelector(sel);
-const $$ = (sel, root = document) => [...root.querySelectorAll(sel)];
+const groupOf = (p) => FILTER_MAP[p.category] || 'security';
+const hasLive = (p) => p.live && p.live !== 'none';
 
-/* --------------------------------------------------------------
-   Load projects.json
-   -------------------------------------------------------------- */
-async function loadProjects() {
+const arrowIcon = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 17L17 7M17 7H8M17 7V16" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+
+/* --------------------------------------------------------------------------
+   Boot
+   -------------------------------------------------------------------------- */
+async function boot() {
   try {
     const res = await fetch('/projects.json');
-    const data = await res.json();
-    state.projects = data.projects;
-    // Extract unique skills
-    state.projects.forEach(p => p.tags.forEach(t => state.skills.add(t)));
-    renderFeatured();
-    renderGrid();
-    renderSkills();
-  } catch (e) {
-    console.error('Failed to load projects.json', e);
+    const json = await res.json();
+    state.projects = json.projects;
+  } catch (err) {
+    console.error('Could not load projects.json', err);
+    return;
   }
+
+  renderDeck();
+  renderStack();
+  renderCards();
+  renderSkillGroups();
+  countFilters();
+
+  setupFilters();
+  setupDeepLink();
+  setupStack();
+  setupReveal();
+  setupNav();
 }
 
-/* --------------------------------------------------------------
-   Render Featured Cards (6 large 3D cards)
-   -------------------------------------------------------------- */
-function renderFeatured() {
-  const container = $('.featured-grid');
-  if (!container) return;
+/* --------------------------------------------------------------------------
+   Hero deck — three mini cards fanned in 3D
+   -------------------------------------------------------------------------- */
+function renderDeck() {
+  const deck = $('#deck');
+  if (!deck) return;
+  const picks = state.projects.filter(p => p.featured).slice(0, 3);
+  deck.innerHTML = picks.map(p => `
+    <div class="deck__card">
+      <img class="deck__img" src="${p.image}" alt="" width="380" height="186" loading="eager" decoding="async">
+      <div class="deck__body">
+        <p class="deck__title">${esc(p.title)}</p>
+        <p class="deck__meta">${esc(labelOf(p))} · ${esc(p.tags[0])}</p>
+      </div>
+    </div>
+  `).join('');
+}
 
+/* --------------------------------------------------------------------------
+   Featured — sticky 3D stack
+   -------------------------------------------------------------------------- */
+function renderStack() {
+  const stack = $('#featuredStack');
+  if (!stack) return;
   const featured = state.projects.filter(p => p.featured);
-  container.innerHTML = featured.map(p => featuredCardHTML(p)).join('');
 
-  // Attach 3D tilt listeners
-  $$('.featured-card').forEach(card => {
-    if (state.reducedMotion) return;
-    let currentX = 0, currentY = 0;
-    const onMouseMove = (e) => {
-      const rect = card.getBoundingClientRect();
-      const centerX = rect.left + rect.width / 2;
-      const centerY = rect.top + rect.height / 2;
-      const deltaX = (e.clientX - centerX) / (rect.width / 2);
-      const deltaY = (e.clientY - centerY) / (rect.height / 2);
-      currentX += (deltaX - currentX) * 0.15;
-      currentY += (deltaY - currentY) * 0.15;
-      card.style.transform = `perspective(1000px) rotateY(${currentX * 8}deg) rotateX(${-currentY * 8}deg)`;
-    };
-    const onMouseLeave = () => {
-      currentX = 0; currentY = 0;
-      card.style.transform = 'perspective(1000px) rotateY(0deg) rotateX(0deg)';
-    };
-    card.addEventListener('mousemove', onMouseMove);
-    card.addEventListener('mouseleave', onMouseLeave);
+  stack.innerHTML = featured.map((p, i) => `
+    <article class="stack-item">
+      <div class="stack-item__body">
+        <div class="stack-item__media">
+          <span class="stack-item__num">${String(i + 1).padStart(2, '0')}</span>
+          <img src="${p.image}" alt="${esc(p.title)} preview" width="320" height="180" loading="lazy" decoding="async">
+        </div>
+        <div class="stack-item__panel">
+          <p class="stack-item__cat">${esc(labelOf(p))}</p>
+          <h3 class="stack-item__title">${esc(p.title)}</h3>
+          <p class="stack-item__desc">${esc(p.desc)}</p>
+          <ul class="tags">
+            ${p.tags.map(t => `<li class="tag">${esc(t)}</li>`).join('')}
+          </ul>
+          <div class="stack-item__links">
+            <a class="link-btn" href="${p.github}" target="_blank" rel="noopener">Source ${arrowIcon}</a>
+            ${hasLive(p) ? `<a class="link-btn link-btn--live" href="${p.live}" target="_blank" rel="noopener">Live demo ${arrowIcon}</a>` : ''}
+          </div>
+        </div>
+      </div>
+    </article>
+  `).join('') + '<div class="stack__tail" aria-hidden="true"></div>';
+}
+
+/* --------------------------------------------------------------------------
+   Project cards grid — every project
+   -------------------------------------------------------------------------- */
+function renderCards() {
+  const wrap = $('#cards');
+  if (!wrap) return;
+
+  wrap.innerHTML = state.projects.map(p => `
+    <article class="card" data-group="${groupOf(p)}" data-title="${esc(p.title)}">
+      <div class="card__media">
+        <span class="card__badge">${p.featured ? 'Featured' : esc(labelOf(p))}</span>
+        ${hasLive(p) ? '<span class="card__live">Live</span>' : ''}
+        <img src="${p.image}" alt="${esc(p.title)} preview" width="1200" height="675" loading="lazy" decoding="async">
+      </div>
+      <div class="card__body">
+        <h3 class="card__title">${esc(p.title)}</h3>
+        <p class="card__desc">${esc(p.desc)}</p>
+        <ul class="tags">${p.tags.map(t => `<li class="tag">${esc(t)}</li>`).join('')}</ul>
+        <div class="card__foot">
+          <a class="card__gh" href="${p.github}" target="_blank" rel="noopener">View source ${arrowIcon}</a>
+          ${hasLive(p) ? `<a class="card__gh" href="${p.live}" target="_blank" rel="noopener">Live ${arrowIcon}</a>` : ''}
+        </div>
+      </div>
+    </article>
+  `).join('');
+}
+
+/* --------------------------------------------------------------------------
+   Filters
+   -------------------------------------------------------------------------- */
+function countFilters() {
+  const counts = { all: state.projects.length, security: 0, ai: 0, apps: 0 };
+  state.projects.forEach(p => { counts[groupOf(p)] += 1; });
+  $$('.chip__count').forEach(el => {
+    const key = el.dataset.count;
+    if (key in counts) el.textContent = counts[key];
   });
 }
 
-function featuredCardHTML(p) {
-  const liveBtn = p.live && p.live !== 'none'
-    ? `<a href="${p.live}" target="_blank" rel="noopener" class="live-btn">🔗 Live Demo</a>`
-    : `<span class="live-btn" disabled>No live demo</span>`;
-  const filterGroup = FILTER_MAP[p.category] || 'security';
-
-  return `
-    <article class="featured-card" role="listitem" tabindex="0" data-filter-group="${filterGroup}" data-title="${escapeHTML(p.title)}">
-      <img
-        class="featured-img"
-        src="${p.image}"
-        alt="${escapeHTML(p.title)} screenshot"
-        loading="lazy"
-        width="1200"
-        height="750"
-      >
-      <div class="card-overlay">
-        <h3>${escapeHTML(p.title)}</h3>
-        <p>${escapeHTML(p.desc)}</p>
-        <div class="card-tags">
-          ${p.tags.map(t => `<span class="tag">${escapeHTML(t)}</span>`).join('')}
-        </div>
-        ${liveBtn}
-      </div>
-      <footer class="card-footer">
-        <span class="category-badge">${escapeHTML(p.category)}</span>
-        <a href="${p.github}" target="_blank" rel="noopener" class="github-link">GitHub ↗</a>
-      </footer>
-    </article>
-  `;
-}
-
-/* --------------------------------------------------------------
-   Render Grid Cards (9 filterable cards)
-   -------------------------------------------------------------- */
-function renderGrid() {
-  const container = $('.grid-cards');
-  if (!container) return;
-  container.innerHTML = state.projects
-    .filter(p => !p.featured)
-    .map(p => gridCardHTML(p))
-    .join('');
-}
-
-function gridCardHTML(p) {
-  const filterGroup = FILTER_MAP[p.category] || 'security';
-  return `
-    <article class="grid-card" role="listitem" data-filter-group="${filterGroup}" tabindex="0" data-title="${escapeHTML(p.title)}">
-      <img
-        class="grid-img"
-        src="${p.image}"
-        alt="${escapeHTML(p.title)} screenshot"
-        loading="lazy"
-        width="480"
-        height="270"
-      >
-      <div class="card-overlay">
-        <h4>${escapeHTML(p.title)}</h4>
-        <p>${escapeHTML(p.desc)}</p>
-        <div class="card-tags">
-          ${p.tags.map(t => `<span class="tag">${escapeHTML(t)}</span>`).join('')}
-        </div>
-        ${p.live && p.live !== 'none' ? `<a href="${p.live}" target="_blank" rel="noopener" class="live-btn">🔗 Live</a>` : ''}
-      </div>
-      <footer class="card-footer">
-        <span class="category-badge">${escapeHTML(p.category)}</span>
-        <a href="${p.github}" target="_blank" rel="noopener" class="github-link">GitHub ↗</a>
-      </footer>
-    </article>
-  `;
-}
-
-/* --------------------------------------------------------------
-   Filter Chips
-   -------------------------------------------------------------- */
-function setupFilterChips() {
-  const chips = $$('.filter-chips .chip, .nav-right .filter-btn');
+function setupFilters() {
+  const chips = $$('.chip');
   chips.forEach(chip => {
     chip.addEventListener('click', () => {
-      const filter = chip.dataset.filter;
-      applyFilter(filter);
+      applyFilter(chip.dataset.filter);
       chips.forEach(c => {
-        c.classList.remove('active');
-        c.setAttribute('aria-pressed', 'false');
+        const on = c === chip;
+        c.classList.toggle('is-active', on);
+        c.setAttribute('aria-pressed', String(on));
       });
-      chip.classList.add('active');
-      chip.setAttribute('aria-pressed', 'true');
     });
   });
 }
 
 function applyFilter(filter) {
-  state.currentFilter = filter;
-  const allCards = $$('.featured-card, .grid-card');
-  allCards.forEach(card => {
-    const match = filter === 'all' || card.dataset.filterGroup === filter;
-    card.style.display = match ? 'block' : 'none';
-    card.setAttribute('aria-hidden', !match);
+  const cards = $$('#cards .card');
+  let shown = 0;
+  cards.forEach(card => {
+    const match = filter === 'all' || card.dataset.group === filter;
+    card.hidden = !match;
+    if (match) shown += 1;
   });
-  // Update URL for deep linking
+  const empty = $('#cardsEmpty');
+  if (empty) empty.hidden = shown !== 0;
+
   const url = new URL(window.location);
   if (filter === 'all') url.searchParams.delete('cat');
   else url.searchParams.set('cat', filter);
   window.history.replaceState({}, '', url);
 }
 
-/* --------------------------------------------------------------
-   Skills Strip Scroll
-   -------------------------------------------------------------- */
-function renderSkills() {
-  const container = $('.skills-pills');
-  if (!container) return;
-  const sortedSkills = [...state.skills].sort();
-  container.innerHTML = sortedSkills.map(s => `<span class="skill-tag" role="option" tabindex="0">${escapeHTML(s)}</span>`).join('');
+function setupDeepLink() {
+  const cat = new URLSearchParams(window.location.search).get('cat');
+  if (!cat) return;
+  const chip = $(`.chip[data-filter="${cat}"]`);
+  if (chip) chip.click();
 }
 
-function setupSkillsScroll() {
-  const wrapper = $('.skills-wrapper');
-  const prev = $('.skill-prev');
-  const next = $('.skill-next');
-  if (!wrapper || !prev || !next) return;
+/* --------------------------------------------------------------------------
+   Sticky stack scroll driver — cards recede in 3D as the next one docks
+   -------------------------------------------------------------------------- */
+function setupStack() {
+  const stack = $('#featuredStack');
+  if (!stack) return;
+  const items = $$('.stack-item', stack);
+  if (!items.length || state.reducedMotion) return;
 
-  const step = 300;
+  const DOCK = 92;
+  const work = $('.section--work');
+  let metrics = [];
+  let workDockY = null;
+  let queued = false;
 
-  prev.addEventListener('click', () => {
-    wrapper.scrollBy({ left: -step, behavior: 'smooth' });
-  });
-  next.addEventListener('click', () => {
-    wrapper.scrollBy({ left: step, behavior: 'smooth' });
-  });
+  function measure() {
+    const stackTop = stack.getBoundingClientRect().top + window.scrollY;
+    metrics = items.map(item => ({
+      dockY: stackTop + item.offsetTop - DOCK
+    }));
+    // The "All projects" sheet takes over from the final card, so the last
+    // card recedes in 3D the same way the others do when a successor docks.
+    workDockY = work
+      ? work.getBoundingClientRect().top + window.scrollY - DOCK
+      : null;
+  }
 
-  wrapper.addEventListener('keydown', (e) => {
-    if (e.key === 'ArrowRight') wrapper.scrollBy({ left: step, behavior: 'smooth' });
-    if (e.key === 'ArrowLeft') wrapper.scrollBy({ left: -step, behavior: 'smooth' });
-  });
+  function update() {
+    if (!metrics.length) return;
+    const y = window.scrollY;
+    const vh = window.innerHeight;
 
-  wrapper.addEventListener('scroll', () => {
-    prev.disabled = wrapper.scrollLeft <= 0;
-    next.disabled = wrapper.scrollLeft + wrapper.clientWidth >= wrapper.scrollWidth - 2;
-  });
-  wrapper.dispatchEvent(new Event('scroll'));
+    items.forEach((item, i) => {
+      let p = 0;
+      const nextDock = i < items.length - 1 ? metrics[i + 1].dockY : workDockY;
+      if (nextDock != null) {
+        p = (y - (nextDock - vh * 0.55)) / (vh * 0.8);
+        p = Math.max(0, Math.min(1, p));
+      }
+      item.style.setProperty('--p', p.toFixed(3));
+    });
+  }
+
+  function onScroll() {
+    if (queued) return;
+    queued = true;
+    requestAnimationFrame(() => { update(); queued = false; });
+  }
+
+  measure();
+  update();
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', () => { measure(); update(); });
+  window.addEventListener('load', () => { measure(); update(); });
 }
 
-/* --------------------------------------------------------------
-   Scroll Reveal (IntersectionObserver)
-   -------------------------------------------------------------- */
-function setupScrollReveal() {
-  if (state.reducedMotion) {
-    $$('[data-reveal]').forEach(el => el.classList.add('revealed'));
+/* --------------------------------------------------------------------------
+   Skill groups
+   -------------------------------------------------------------------------- */
+function renderSkillGroups() {
+  const wrap = $('#skillGroups');
+  if (!wrap) return;
+
+  const all = new Set();
+  state.projects.forEach(p => p.tags.forEach(t => all.add(t)));
+
+  const claimed = new Set();
+  const groups = SKILL_GROUPS.map(g => {
+    const members = g.members.filter(m => all.has(m));
+    members.forEach(m => claimed.add(m));
+    return { ...g, members };
+  });
+
+  const leftovers = [...all].filter(t => !claimed.has(t));
+  if (leftovers.length) {
+    groups.push({ name: 'Other', icon: 'M12 5v14M5 12h14', members: leftovers });
+  }
+
+  wrap.innerHTML = groups.map(g => `
+    <div class="skill-card">
+      <div class="skill-card__head">
+        <span class="skill-card__icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="${g.icon}"/>
+          </svg>
+        </span>
+        <p class="skill-card__name">${esc(g.name)}</p>
+      </div>
+      <ul class="skill-list">
+        ${g.members.map(m => `<li>${esc(m)}</li>`).join('')}
+      </ul>
+    </div>
+  `).join('');
+}
+
+/* --------------------------------------------------------------------------
+   Scroll reveal
+   -------------------------------------------------------------------------- */
+function setupReveal() {
+  const targets = $$('[data-reveal]');
+
+  if (state.reducedMotion || !('IntersectionObserver' in window)) {
+    targets.forEach(el => el.classList.add('is-in'));
     return;
   }
 
-  const observer = new IntersectionObserver((entries) => {
+  const io = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('revealed');
-        observer.unobserve(entry.target);
+      if (!entry.isIntersecting) return;
+      entry.target.classList.add('is-in');
+      io.unobserve(entry.target);
+    });
+  }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
+
+  targets.forEach(el => io.observe(el));
+}
+
+/* --------------------------------------------------------------------------
+   Nav — stuck shadow, mobile menu, active section
+   -------------------------------------------------------------------------- */
+function setupNav() {
+  const nav = $('.nav');
+  const toggle = $('#navToggle');
+  const links = $('#navLinks');
+
+  if (toggle && links) {
+    toggle.addEventListener('click', () => {
+      const open = toggle.getAttribute('aria-expanded') === 'true';
+      toggle.setAttribute('aria-expanded', String(!open));
+      links.classList.toggle('is-open', !open);
+    });
+    links.addEventListener('click', e => {
+      if (e.target.tagName === 'A') {
+        toggle.setAttribute('aria-expanded', 'false');
+        links.classList.remove('is-open');
       }
     });
-  }, {
-    rootMargin: '0px 0px -60px 0px',
-    threshold: 0.1
-  });
+  }
 
-  $$('[data-reveal]').forEach(el => {
-    el.style.opacity = '0';
-    el.style.transform = 'translateY(24px)';
-    el.style.transition = 'opacity 500ms ease, transform 500ms ease';
-    observer.observe(el);
-  });
-}
+  if (nav) {
+    const onScroll = () => nav.classList.toggle('is-stuck', window.scrollY > 12);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  }
 
-/* CSS for revealed state - added dynamically */
-const style = document.createElement('style');
-style.textContent = `
-  [data-reveal].revealed { opacity: 1 !important; transform: translateY(0) !important; }
-`;
-document.head.appendChild(style);
+  // Highlight the section currently in view. Only same-page anchors are
+  // candidates — an off-site href would throw inside querySelector.
+  const navLinks = $$('.nav__links a').filter(a => (a.getAttribute('href') || '').startsWith('#'));
+  const sections = navLinks
+    .map(a => document.querySelector(a.getAttribute('href')))
+    .filter(Boolean);
 
-/* --------------------------------------------------------------
-   Navbar shadow on scroll
-   -------------------------------------------------------------- */
-function setupNavbarScroll() {
-  const nav = $('.navbar');
-  if (!nav) return;
-  window.addEventListener('scroll', () => {
-    if (window.scrollY > 100) nav.style.boxShadow = '0 4px 24px rgba(0,0,0,0.06)';
-    else nav.style.boxShadow = 'none';
-  });
-}
-
-/* --------------------------------------------------------------
-   Reduce motion handling
-   -------------------------------------------------------------- */
-function setupReduceMotion() {
-  const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
-  mq.addEventListener('change', e => {
-    state.reducedMotion = e.matches;
-    if (e.matches) {
-      document.body.style.transition = 'none';
-      $$('[data-reveal]').forEach(el => el.classList.add('revealed'));
-      $$('.featured-card').forEach(c => c.style.transform = 'none');
-    }
-  });
-}
-
-/* --------------------------------------------------------------
-   URL deep linking for filters
-   -------------------------------------------------------------- */
-function handleDeepLink() {
-  const params = new URLSearchParams(window.location.search);
-  const cat = params.get('cat');
-  if (cat && ['security', 'ai', 'apps'].includes(cat)) {
-    const chip = document.querySelector(`.chip[data-filter="${cat}"]`) || document.querySelector(`.nav-right .filter-btn[data-filter="${cat}"]`);
-    if (chip) chip.click();
+  if (sections.length && 'IntersectionObserver' in window) {
+    const spy = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        navLinks.forEach(a => a.classList.toggle('is-active', a.getAttribute('href') === '#' + entry.target.id));
+      });
+    }, { rootMargin: '-45% 0px -50% 0px' });
+    sections.forEach(s => spy.observe(s));
   }
 }
 
-/* --------------------------------------------------------------
-   Utility: escape HTML
-   -------------------------------------------------------------- */
-function escapeHTML(str) {
-  return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
-}
-
-/* --------------------------------------------------------------
-   Init
-   -------------------------------------------------------------- */
-document.addEventListener('DOMContentLoaded', async () => {
-  await loadProjects();
-  setupFilterChips();
-  setupSkillsScroll();
-  setupScrollReveal();
-  setupNavbarScroll();
-  setupReduceMotion();
-  handleDeepLink();
-});
+document.addEventListener('DOMContentLoaded', boot);

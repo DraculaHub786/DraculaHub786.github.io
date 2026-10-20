@@ -1,14 +1,21 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200">
+<svg xmlns="http://www.w3.org/2000/svg" width="320" height="180" viewBox="0 0 320 180" role="img" aria-label="Apps">
   <defs>
-    <linearGradient id="g4" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#4CAF50"/>
-      <stop offset="100%" stop-color="#2E7D32"/>
+    <linearGradient id="bg3" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3E7C9B"/>
+      <stop offset="100%" stop-color="#5FA8C4"/>
     </linearGradient>
+    <radialGradient id="gl3" cx="30%" cy="20%" r="75%">
+      <stop offset="0%" stop-color="#fff" stop-opacity=".22"/>
+      <stop offset="100%" stop-color="#fff" stop-opacity="0"/>
+    </radialGradient>
   </defs>
-  <rect width="200" height="200" fill="url(#g4)" rx="16"/>
-  <path d="M40 40 H160 V160 H40 Z" fill="#FFF" opacity="0.9"/>
-  <rect x="48" y="48" width="104" height="104" rx="8" fill="rgba(0,0,0,0.15)"/>
-  <circle cx="100" cy="84" r="8" fill="#FFF" opacity="0.8"/>
-  <circle cx="100" cy="100" r="10" fill="rgba(255,255,255,0.3)"/>
-  <circle cx="100" cy="116" r="6" fill="rgba(255,255,255,0.2)"/>
+  <rect width="320" height="180" fill="url(#bg3)"/>
+  <rect width="320" height="180" fill="url(#gl3)"/>
+  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="130" y="34" width="60" height="102" rx="11" fill="rgba(255,255,255,.18)"/>
+    <rect x="139" y="44" width="42" height="58" rx="4" fill="rgba(0,0,0,.2)"/>
+    <path d="M160 110l-9 8v-8z" fill="#fff" opacity=".9"/>
+    <circle cx="160" cy="124" r="4" fill="#fff" opacity=".5"/></g>
+  <text x="18" y="164" font-family="Inter,system-ui,sans-serif" font-size="10" font-weight="600" letter-spacing="1.6" fill="#fff" opacity=".62">APPS</text>
+  <text x="302" y="164" text-anchor="end" font-family="Georgia,serif" font-size="12" font-weight="600" fill="#fff" opacity=".38">D786</text>
 </svg>

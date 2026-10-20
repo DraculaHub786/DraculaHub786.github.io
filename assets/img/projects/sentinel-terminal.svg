@@ -1,16 +1,23 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200">
+<svg xmlns="http://www.w3.org/2000/svg" width="320" height="180" viewBox="0 0 320 180" role="img" aria-label="Security">
   <defs>
-    <linearGradient id="g2" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#B99A6E"/>
+    <linearGradient id="bg1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#8A6A45"/>
       <stop offset="100%" stop-color="#E8913A"/>
     </linearGradient>
+    <radialGradient id="gl1" cx="30%" cy="20%" r="75%">
+      <stop offset="0%" stop-color="#fff" stop-opacity=".22"/>
+      <stop offset="100%" stop-color="#fff" stop-opacity="0"/>
+    </radialGradient>
   </defs>
-  <rect width="200" height="200" fill="url(#g2)" rx="16"/>
-  <rect x="28" y="44" width="144" height="112" rx="6" fill="rgba(0,0,0,0.55)"/>
-  <circle cx="64" cy="76" r="6" fill="#E8913A"/>
-  <rect x="76" y="70" width="72" height="10" rx="3" fill="rgba(255,255,255,0.4)"/>
-  <rect x="76" y="92" width="96" height="10" rx="3" fill="rgba(255,255,255,0.25)"/>
-  <rect x="52" y="114" width="120" height="10" rx="3" fill="rgba(255,255,255,0.15)"/>
-  <circle cx="64" cy="144" r="6" fill="#4CAF50"/>
-  <rect x="76" y="138" width="48" height="10" rx="3" fill="rgba(255,255,255,0.3)"/>
+  <rect width="320" height="180" fill="url(#bg1)"/>
+  <rect width="320" height="180" fill="url(#gl1)"/>
+  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="104" y="44" width="112" height="76" rx="7" fill="rgba(0,0,0,.42)"/>
+    <circle cx="118" cy="58" r="3.5" fill="#fff" opacity=".8"/>
+    <circle cx="130" cy="58" r="3.5" fill="#fff" opacity=".5"/>
+    <rect x="118" y="72" width="60" height="6" rx="3" fill="#fff" opacity=".55"/>
+    <rect x="118" y="86" width="82" height="6" rx="3" fill="#fff" opacity=".3"/>
+    <rect x="118" y="100" width="44" height="6" rx="3" fill="#fff" opacity=".2"/></g>
+  <text x="18" y="164" font-family="Inter,system-ui,sans-serif" font-size="10" font-weight="600" letter-spacing="1.6" fill="#fff" opacity=".62">SECURITY</text>
+  <text x="302" y="164" text-anchor="end" font-family="Georgia,serif" font-size="12" font-weight="600" fill="#fff" opacity=".38">D786</text>
 </svg>

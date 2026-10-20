@@ -1,15 +1,20 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200">
+<svg xmlns="http://www.w3.org/2000/svg" width="320" height="180" viewBox="0 0 320 180" role="img" aria-label="Apps">
   <defs>
-    <linearGradient id="g5" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#3B7D9E"/>
-      <stop offset="100%" stop-color="#1A5C7E"/>
+    <linearGradient id="bg4" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3E7C9B"/>
+      <stop offset="100%" stop-color="#5FA8C4"/>
     </linearGradient>
+    <radialGradient id="gl4" cx="30%" cy="20%" r="75%">
+      <stop offset="0%" stop-color="#fff" stop-opacity=".22"/>
+      <stop offset="100%" stop-color="#fff" stop-opacity="0"/>
+    </radialGradient>
   </defs>
-  <rect width="200" height="200" fill="url(#g5)" rx="16"/>
-  <circle cx="100" cy="80" r="30" fill="rgba(255,255,255,0.1)" stroke="rgba(255,255,255,0.3)" stroke-width="1"/>
-  <path d="M60 100 L140 100" stroke="#FFF" stroke-width="2" stroke-linecap="round"/>
-  <circle cx="44" cy="100" r="8" fill="#FFF" opacity="0.9"/>
-  <circle cx="156" cy="100" r="8" fill="#FFF" opacity="0.9"/>
-  <path d="M80 80 Q100 60 120 80" stroke="#FFF" stroke-width="2" stroke-linecap="round"/>
-  <rect x="74" y="40" width="52" height="80" rx="4" fill="rgba(255,255,255,0.1)"/>
+  <rect width="320" height="180" fill="url(#bg4)"/>
+  <rect width="320" height="180" fill="url(#gl4)"/>
+  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M104 54h76a10 10 0 0110 10v30a10 10 0 01-10 10h-32l-18 14v-14h-26a10 10 0 01-10-10V64a10 10 0 0110-10z" fill="rgba(255,255,255,.22)"/>
+    <path d="M156 90h60a10 10 0 0110 10v26a10 10 0 01-10 10h-12v12l-16-12h-32a10 10 0 01-10-10v-26a10 10 0 0110-10z" fill="rgba(0,0,0,.3)"/>
+    <path d="M118 74h48M118 86h30" stroke="#fff" stroke-width="3" stroke-linecap="round" opacity=".8"/></g>
+  <text x="18" y="164" font-family="Inter,system-ui,sans-serif" font-size="10" font-weight="600" letter-spacing="1.6" fill="#fff" opacity=".62">APPS</text>
+  <text x="302" y="164" text-anchor="end" font-family="Georgia,serif" font-size="12" font-weight="600" fill="#fff" opacity=".38">D786</text>
 </svg>

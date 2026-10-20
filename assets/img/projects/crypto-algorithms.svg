@@ -1,13 +1,22 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200">
+<svg xmlns="http://www.w3.org/2000/svg" width="320" height="180" viewBox="0 0 320 180" role="img" aria-label="Crypto">
   <defs>
-    <linearGradient id="g13" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#D4A017"/>
-      <stop offset="100%" stop-color="#B8860B"/>
+    <linearGradient id="bg12" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#C08A2E"/>
+      <stop offset="100%" stop-color="#E8B84A"/>
     </linearGradient>
+    <radialGradient id="gl12" cx="30%" cy="20%" r="75%">
+      <stop offset="0%" stop-color="#fff" stop-opacity=".22"/>
+      <stop offset="100%" stop-color="#fff" stop-opacity="0"/>
+    </radialGradient>
   </defs>
-  <rect width="200" height="200" fill="url(#g13)" rx="16"/>
-  <rect x="44" y="44" width="112" height="112" rx="8" fill="rgba(255,255,255,0.15)" stroke="rgba(255,255,255,0.2)" stroke-width="1"/>
-  <path d="M56 56 Q100 30 144 56 Q170 100 144 144 Q100 170 56 144 Q30 100 56 56 Z" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="2"/>
-  <rect x="70" y="86" width="60" height="10" rx="4" fill="rgba(255,255,255,0.3)"/>
-  <rect x="70" y="104" width="40" height="10" rx="4" fill="rgba(255,255,255,0.2)"/>
+  <rect width="320" height="180" fill="url(#bg12)"/>
+  <rect width="320" height="180" fill="url(#gl12)"/>
+  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <g fill="#fff" opacity=".75">
+      <rect x="118" y="56" width="12" height="12" rx="2"/><rect x="140" y="56" width="12" height="12" rx="2"/><rect x="162" y="56" width="12" height="12" rx="2"/><rect x="184" y="56" width="12" height="12" rx="2"/>
+      <rect x="118" y="78" width="12" height="12" rx="2" opacity=".55"/><rect x="140" y="78" width="12" height="12" rx="2" opacity=".55"/><rect x="162" y="78" width="12" height="12" rx="2" opacity=".55"/><rect x="184" y="78" width="12" height="12" rx="2" opacity=".55"/>
+    </g>
+    <rect x="118" y="100" width="78" height="12" rx="2" fill="#fff" opacity=".35"/></g>
+  <text x="18" y="164" font-family="Inter,system-ui,sans-serif" font-size="10" font-weight="600" letter-spacing="1.6" fill="#fff" opacity=".62">CRYPTO</text>
+  <text x="302" y="164" text-anchor="end" font-family="Georgia,serif" font-size="12" font-weight="600" fill="#fff" opacity=".38">D786</text>
 </svg>

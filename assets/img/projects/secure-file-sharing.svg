@@ -1,14 +1,20 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200">
+<svg xmlns="http://www.w3.org/2000/svg" width="320" height="180" viewBox="0 0 320 180" role="img" aria-label="Security">
   <defs>
-    <linearGradient id="g15" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#B99A6E"/>
+    <linearGradient id="bg14" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#8A6A45"/>
       <stop offset="100%" stop-color="#E8913A"/>
     </linearGradient>
+    <radialGradient id="gl14" cx="30%" cy="20%" r="75%">
+      <stop offset="0%" stop-color="#fff" stop-opacity=".22"/>
+      <stop offset="100%" stop-color="#fff" stop-opacity="0"/>
+    </radialGradient>
   </defs>
-  <rect width="200" height="200" fill="url(#g15)" rx="16"/>
-  <rect x="34" y="56" width="132" height="88" rx="8" fill="rgba(0,0,0,0.2)" stroke="rgba(255,255,255,0.25)" stroke-width="1.5"/>
-  <path d="M96 66 L116 66 L116 96 L96 96 Z" fill="#FFF" opacity="0.85"/>
-  <path d="M78 78 Q100 56 122 78" stroke="rgba(255,255,255,0.4)" stroke-width="2" fill="none" stroke-linecap="round"/>
-  <circle cx="100" cy="126" r="6" fill="rgba(255,255,255,0.35)"/>
-  <circle cx="100" cy="126" r="2" fill="rgba(255,255,255,0.8)"/>
+  <rect width="320" height="180" fill="url(#bg14)"/>
+  <rect width="320" height="180" fill="url(#gl14)"/>
+  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M100 56h44l12 12h64a8 8 0 018 8v46a8 8 0 01-8 8h-120a8 8 0 01-8-8V64a8 8 0 018-8z" fill="rgba(255,255,255,.2)"/>
+    <path d="M160 96v-8a10 10 0 0120 0v8" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" opacity=".8"/>
+    <rect x="152" y="96" width="36" height="26" rx="5" fill="#fff" opacity=".9"/></g>
+  <text x="18" y="164" font-family="Inter,system-ui,sans-serif" font-size="10" font-weight="600" letter-spacing="1.6" fill="#fff" opacity=".62">SECURITY</text>
+  <text x="302" y="164" text-anchor="end" font-family="Georgia,serif" font-size="12" font-weight="600" fill="#fff" opacity=".38">D786</text>
 </svg>

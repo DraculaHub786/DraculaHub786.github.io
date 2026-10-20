@@ -1,15 +1,24 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200">
+<svg xmlns="http://www.w3.org/2000/svg" width="320" height="180" viewBox="0 0 320 180" role="img" aria-label="Web">
   <defs>
-    <linearGradient id="g6" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#009688"/>
-      <stop offset="100%" stop-color="#00695C"/>
+    <linearGradient id="bg5" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2F7D6B"/>
+      <stop offset="100%" stop-color="#4FA894"/>
     </linearGradient>
+    <radialGradient id="gl5" cx="30%" cy="20%" r="75%">
+      <stop offset="0%" stop-color="#fff" stop-opacity=".22"/>
+      <stop offset="100%" stop-color="#fff" stop-opacity="0"/>
+    </radialGradient>
   </defs>
-  <rect width="200" height="200" fill="url(#g6)" rx="16"/>
-  <rect x="40" y="60" width="120" height="80" rx="8" fill="rgba(255,255,255,0.15)" stroke="rgba(255,255,255,0.3)" stroke-width="2"/>
-  <rect x="52" y="72" width="96" height="8" rx="4" fill="rgba(255,255,255,0.9)"/>
-  <rect x="52" y="92" width="60" height="6" rx="3" fill="rgba(255,255,255,0.5)"/>
-  <rect x="52" y="110" width="80" height="6" rx="3" fill="rgba(255,255,255,0.3)"/>
-  <circle cx="80" cy="150" r="12" fill="rgba(255,255,255,0.2)"/>
-  <circle cx="120" cy="150" r="12" fill="rgba(255,255,255,0.2)"/>
+  <rect width="320" height="180" fill="url(#bg5)"/>
+  <rect width="320" height="180" fill="url(#gl5)"/>
+  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="112" y="40" width="96" height="88" rx="6" fill="rgba(255,255,255,.16)"/>
+    <path d="M112 60h96" stroke="#fff" stroke-width="2" opacity=".5"/>
+    <g fill="#fff" opacity=".8">
+      <rect x="124" y="70" width="14" height="12" rx="2"/><rect x="146" y="70" width="14" height="12" rx="2"/><rect x="168" y="70" width="14" height="12" rx="2"/><rect x="190" y="70" width="8" height="12" rx="2"/>
+      <rect x="124" y="90" width="14" height="12" rx="2"/><rect x="146" y="90" width="14" height="12" rx="2"/><rect x="168" y="90" width="14" height="12" rx="2"/>
+    </g>
+    <rect x="150" y="108" width="22" height="20" rx="3" fill="#fff" opacity=".9"/></g>
+  <text x="18" y="164" font-family="Inter,system-ui,sans-serif" font-size="10" font-weight="600" letter-spacing="1.6" fill="#fff" opacity=".62">WEB</text>
+  <text x="302" y="164" text-anchor="end" font-family="Georgia,serif" font-size="12" font-weight="600" fill="#fff" opacity=".38">D786</text>
 </svg>
