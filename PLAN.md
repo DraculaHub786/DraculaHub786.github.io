@@ -93,7 +93,7 @@ Grid cards are smaller, show title + short desc + tag icons, no 3D tilt.
 - [ ] Keyboard-only navigation works
 - [ ] Animation stops with `prefers-reduced-motion: reduce` on
 - [ ] Settings → Pages → Enforce HTTPS is on
-- [ ] CNAME reads `nilpdigitox.me`
+- [ ] CNAME reads `nlpdigitox.me`
 - [ ] Pin 6 featured repos on GitHub profile
 - [ ] Decide whether Gmail address stays public
 
@@ -119,5 +119,5 @@ Grid cards are smaller, show title + short desc + tag icons, no 3D tilt.
 ## Notes
 - The repo is freshly initialized — all files are new
 - GitHub Actions or manual deploy to `main` branch + `gh-pages` branch (or single main with `/(docs)` if using GitHub Pages directory)
-- CNAME file for `nilpdigitox.me` custom domain
+- CNAME file for `nlpdigitox.me` custom domain
 - All images referenced from `projects.json` must exist on disk or be generated as placeholders
