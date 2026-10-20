@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FDF8F0"/>
+      <stop offset="50%" stop-color="#F4EADC"/>
+      <stop offset="100%" stop-color="#F5E3C8"/>
+    </linearGradient>
+    <linearGradient id="cardGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="100%" stop-color="#FBF6ED"/>
+    </linearGradient>
+    <linearGradient id="accentGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#B99A6E"/>
+      <stop offset="100%" stop-color="#E8913A"/>
+    </linearGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#B99A6E" flood-opacity="0.18"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bgGrad)"/>
+
+  <!-- Decorative circles -->
+  <circle cx="100" cy="120" r="90" fill="rgba(232,145,58,0.10)"/>
+  <circle cx="1100" cy="520" r="120" fill="rgba(185,154,110,0.12)"/>
+  <circle cx="200" cy="540" r="60" fill="rgba(232,145,58,0.08)"/>
+  <circle cx="1050" cy="80" r="50" fill="rgba(185,154,110,0.10)"/>
+
+  <!-- Floating orb -->
+  <g transform="translate(600,220)">
+    <circle r="90" fill="url(#accentGrad)" opacity="0.85" filter="url(#shadow)"/>
+    <circle r="70" fill="rgba(255,255,255,0.15)"/>
+    <circle r="50" fill="rgba(255,255,255,0.2)"/>
+    <circle r="30" fill="rgba(255,255,255,0.3)"/>
+    <circle r="14" fill="rgba(255,255,255,0.5)"/>
+  </g>
+
+  <!-- Title -->
+  <text x="600" y="470" text-anchor="middle" font-family="'Cormorant Garamond', Georgia, serif" font-size="52" font-weight="600" fill="#3A2A1A">DraculaHub786</text>
+  <text x="600" y="520" text-anchor="middle" font-family="'Inter', system-ui" font-size="22" fill="#B99A6E">Security · AI · Blockchain · Apps</text>
+  <text x="600" y="550" text-anchor="middle" font-family="'Inter', system-ui" font-size="16" fill="#8B7A62">nilpdigitox.me</text>
+</svg>

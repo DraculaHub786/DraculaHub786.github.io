@@ -1,0 +1,154 @@
+{
+  "projects": [
+    {
+      "title": "Mini Honeypot Attack Mapper",
+      "category": "Security",
+      "featured": true,
+      "desc": "Security-operations-style dashboard of real scanner traffic caught by decoy SSH, HTTP, FTP, Telnet and MySQL services, shown on a live world map",
+      "tags": ["FastAPI", "Next.js", "TypeScript"],
+      "github": "https://github.com/DraculaHub786/MINI-HONEYPOT-ATTACK-MAPPER",
+      "live": "none",
+      "image": "/assets/img/projects/honeypot-map.svg"
+    },
+    {
+      "title": "Sentinel",
+      "category": "Security",
+      "featured": true,
+      "desc": "One CLI and VS Code extension that runs code, dependency, secrets, infrastructure and live-app scans together and removes duplicate findings",
+      "tags": ["Go", "TypeScript", "CLI"],
+      "github": "https://github.com/DraculaHub786/DevSecOps-Unified-Scanner",
+      "live": "none",
+      "image": "/assets/img/projects/sentinel-terminal.svg"
+    },
+    {
+      "title": "SkillGap AI",
+      "category": "AI",
+      "featured": true,
+      "desc": "Compares a resume with a job description using a fine-tuned DistilBERT skills model and gives ATS, content and match scores",
+      "tags": ["FastAPI", "React", "TypeScript"],
+      "github": "https://github.com/DraculaHub786/NLP-SKILL-GAP-ANALYZER",
+      "live": "none",
+      "image": "/assets/img/projects/skilgap-ai.svg"
+    },
+    {
+      "title": "NLP-Digitox",
+      "category": "Apps",
+      "featured": true,
+      "desc": "Free, open-source, ad-free Android app for digital wellbeing: app blocking, limits, focus mode, in 28 languages",
+      "tags": ["Flutter", "Dart", "wellbeing"],
+      "github": "https://github.com/DraculaHub786/NLP-digitox",
+      "live": "none",
+      "image": "/assets/img/projects/nlp-digitox.svg"
+    },
+    {
+      "title": "DecentralChat",
+      "category": "Apps",
+      "featured": true,
+      "desc": "End-to-end encrypted messenger with voice and video calls, groups and file sharing",
+      "tags": ["Python", "WebRTC", "encryption"],
+      "github": "https://github.com/DraculaHub786/Decentral_Chat",
+      "live": "none",
+      "image": "/assets/img/projects/decentral-chat.svg"
+    },
+    {
+      "title": "Nur-e-Haya Hotel Management",
+      "category": "Web",
+      "featured": true,
+      "desc": "Hotel management system with 10 user roles, a live kitchen display and an AI concierge",
+      "tags": ["Flask", "Firestore", "AI concierge"],
+      "github": "https://github.com/DraculaHub786/Hotel-Management-System-firebase",
+      "live": "none",
+      "image": "/assets/img/projects/hotel-management.svg"
+    },
+    {
+      "title": "SIEM Platform",
+      "category": "Security",
+      "featured": false,
+      "desc": "Collects logs, detects brute-force attempts and shows live alerts",
+      "tags": ["Flask", "MongoDB", "Socket.IO"],
+      "github": "https://github.com/DraculaHub786/SEIM-main",
+      "live": "none",
+      "image": "/assets/img/projects/siem-platform.svg"
+    },
+    {
+      "title": "AQI Health Planner",
+      "category": "AI",
+      "featured": false,
+      "desc": "Chatbot that turns air-quality data into health and activity advice",
+      "tags": ["Python", "Streamlit", "Hugging Face"],
+      "github": "https://github.com/DraculaHub786/aqi-health-system",
+      "live": "none",
+      "image": "/assets/img/projects/aqi-health.svg"
+    },
+    {
+      "title": "StreamGrab",
+      "category": "Apps",
+      "featured": false,
+      "desc": "Video and audio downloader, already live on Render",
+      "tags": ["Flask", "yt-dlp", "downloading"],
+      "github": "https://github.com/DraculaHub786/StreamGrab",
+      "live": "https://draculahub786.render.com",
+      "image": "/assets/img/projects/streamgrab.svg"
+    },
+    {
+      "title": "Error Sound Alert",
+      "category": "Apps",
+      "featured": false,
+      "desc": "VS Code extension that plays a sound when code has errors, fails tests or breaks the build",
+      "tags": ["JavaScript", "VS Code", "automation"],
+      "github": "https://github.com/DraculaHub786/FAAAHH-------",
+      "live": "none",
+      "image": "/assets/img/projects/error-sound.svg"
+    },
+    {
+      "title": "Crypto Wallet Testnet",
+      "category": "Crypto",
+      "featured": false,
+      "desc": "Ethereum testnet wallet that connects to MetaMask",
+      "tags": ["HTML", "Flask", "Ethereum"],
+      "github": "https://github.com/DraculaHub786/Crypto-Wallet-Testnet-",
+      "live": "none",
+      "image": "/assets/img/projects/crypto-wallet.svg"
+    },
+    {
+      "title": "Cryptography Simulation",
+      "category": "Crypto",
+      "featured": false,
+      "desc": "Animated step-by-step demos of Caesar, Vigenère, AES, MD5 and SHA-256",
+      "tags": ["Flask", "JavaScript", "cryptography"],
+      "github": "https://github.com/DraculaHub786/Cryptography-Algorithm-Implementation",
+      "live": "none",
+      "image": "/assets/img/projects/crypto-simulation.svg"
+    },
+    {
+      "title": "Cryptography Algorithms",
+      "category": "Crypto",
+      "featured": false,
+      "desc": "Web app implementing encryption algorithms",
+      "tags": ["Flask", "cryptography", "web"],
+      "github": "https://github.com/DraculaHub786/Cryptography-Simulation",
+      "live": "none",
+      "image": "/assets/img/projects/crypto-algorithms.svg"
+    },
+    {
+      "title": "Password Cracking and Hashing",
+      "category": "Crypto",
+      "featured": false,
+      "desc": "Hashing and cracking demo",
+      "tags": ["Flask", "security", "hashing"],
+      "github": "https://github.com/DraculaHub786/Password-Cracking-and-Hashing-Algorithm",
+      "live": "none",
+      "image": "/assets/img/projects/password-cracking.svg"
+    },
+    {
+      "title": "Secure File Sharing",
+      "category": "Security",
+      "featured": false,
+      "desc": "Encrypted upload and sharing with login, Docker and Nginx",
+      "tags": ["Flask", "Docker", "Nginx"],
+      "github": "https://github.com/DraculaHub786/Secure-File-Sharing",
+      "live": "none",
+      "image": "/assets/img/projects/secure-file-sharing.svg"
+    }
+  ]
+}
