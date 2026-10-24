@@ -15,14 +15,42 @@
   <meta property="og:image" content="https://nlpdigitox.me/assets/og.png">
   <meta name="twitter:card" content="summary_large_image">
 
-  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..700&family=Inter:wght@400;500;600;700&display=swap">
-  <link rel="stylesheet" href="/styles.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..700&family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap">
+  <link rel="stylesheet" href="./styles.css?v=3.3">
 </head>
 <body>
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
   <div class="grain" aria-hidden="true"></div>
+
+  <!-- Notification Toast Container -->
+  <div class="toast-container" id="toastContainer" aria-live="polite"></div>
+
+  <!-- Mobile Drawer Menu -->
+  <div class="mobile-drawer" id="mobileDrawer" aria-hidden="true" onclick="if(event.target === this) toggleMobileMenu()">
+    <div class="mobile-drawer-body" id="mobileDrawerContent">
+      <div>
+        <div style="display:flex; justify-content:space-between; align-items:center; padding-bottom:16px; border-bottom:1px solid var(--line);">
+          <span style="font-family:var(--font-display); font-weight:800; font-size:1.25rem;">DraculaHub<b>786</b></span>
+          <button class="modal-close-btn" onclick="toggleMobileMenu()" aria-label="Close menu" style="position:static; transform:none;">✕</button>
+        </div>
+        <nav class="mobile-nav-links">
+          <a class="mobile-nav-link" href="#featured" onclick="toggleMobileMenu()">Featured</a>
+          <a class="mobile-nav-link" href="#journey" onclick="toggleMobileMenu()">Journey</a>
+          <a class="mobile-nav-link" href="#about" onclick="toggleMobileMenu()">About</a>
+          <a class="mobile-nav-link" href="#work" onclick="toggleMobileMenu()">All Projects</a>
+          <a class="mobile-nav-link" href="#stack" onclick="toggleMobileMenu()">Tech Stack</a>
+          <a class="mobile-nav-link" href="#contact" onclick="toggleMobileMenu()">Contact</a>
+        </nav>
+      </div>
+      <div>
+        <button class="btn btn--solid" onclick="toggleMobileMenu(); openContactModal();" style="width:100%; justify-content:center;">Let's Talk</button>
+        <p style="font-size:0.75rem; color:var(--ink-faint); text-align:center; margin-top:14px;">Afjal Ansari • Security &amp; AI</p>
+      </div>
+    </div>
+  </div>
 
   <!-- ================= NAV ================= -->
   <header class="nav" id="top">
@@ -33,9 +61,10 @@
 
     <nav class="nav__links" id="navLinks" aria-label="Sections">
       <a href="#featured">Featured</a>
+      <a href="#journey">Journey</a>
+      <a href="#about">About</a>
       <a href="#work">Projects</a>
       <a href="#stack">Stack</a>
-      <a href="#about">About</a>
       <a class="nav__links-gh" href="https://github.com/DraculaHub786" target="_blank" rel="noopener">
         GitHub
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 17L17 7M17 7H8M17 7V16" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -43,8 +72,8 @@
     </nav>
 
     <div class="nav__actions">
-      <a class="btn btn--sm btn--solid" href="https://github.com/DraculaHub786" target="_blank" rel="noopener">GitHub</a>
-      <button class="nav__toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="navLinks">
+      <button class="btn btn--sm btn--solid" onclick="openContactModal()">Let's Talk</button>
+      <button class="nav__toggle" id="navToggle" onclick="toggleMobileMenu()" aria-label="Toggle menu" aria-expanded="false" aria-controls="mobileDrawer">
         <span></span><span></span><span></span>
       </button>
     </div>
@@ -53,6 +82,7 @@
   <main>
     <!-- ================= HERO ================= -->
     <section class="hero">
+      <canvas class="hero__canvas" id="heroCanvas" aria-hidden="true"></canvas>
       <div class="hero__aura" aria-hidden="true"></div>
       <div class="hero__grid" aria-hidden="true"></div>
 
@@ -62,39 +92,50 @@
           <h1 class="hero__title">
             Tools that<br>
             <em>hold&nbsp;up</em> under<br>
-            real&nbsp;load.
+            <span class="metallic-title">real&nbsp;load.</span>
           </h1>
           <p class="hero__lede">
             I'm <strong>Afjal Ansari</strong> — I build security tooling, AI applications
             and production web apps. Fifteen projects, each one shipped end to end.
           </p>
           <div class="hero__cta">
-            <a class="btn btn--solid" href="#work">View all projects</a>
+            <a class="btn btn--solid" href="#featured">View Featured</a>
+            <a class="btn btn--ghost" href="#work">All Projects</a>
             <a class="btn btn--ghost" href="https://github.com/DraculaHub786" target="_blank" rel="noopener">
-              GitHub profile
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 17L17 7M17 7H8M17 7V16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              GitHub Profile
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 17L17 7H8M17 7V16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </a>
           </div>
 
           <dl class="stats">
             <div class="stats__item">
-              <dt>15</dt>
+              <dt data-target="15">15</dt>
               <dd>Projects<br>shipped</dd>
             </div>
             <div class="stats__item">
-              <dt>5</dt>
+              <dt data-target="5">5</dt>
               <dd>Domains<br>covered</dd>
             </div>
             <div class="stats__item">
-              <dt>32</dt>
+              <dt data-target="32">32</dt>
               <dd>Technologies<br>in use</dd>
             </div>
           </dl>
         </div>
 
-        <div class="hero__visual" aria-hidden="true">
-          <div class="deck" id="deck">
+        <div class="hero__visual">
+          <div class="deck" id="deck" aria-label="Rotating featured projects deck" role="region">
             <!-- mini cards injected from projects.json -->
+          </div>
+          <div class="deck-nav" id="deckNav" aria-label="Project card rotation controls">
+            <button type="button" class="deck-nav__btn" id="deckPrevBtn" aria-label="Previous card">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+            </button>
+            <div class="deck-nav__dots" id="deckDots" role="tablist"></div>
+            <button type="button" class="deck-nav__btn" id="deckNextBtn" aria-label="Next card">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+            </button>
+            <span class="deck-nav__counter" id="deckCounter" aria-live="polite">01 / 06</span>
           </div>
           <div class="hero__ring" aria-hidden="true"></div>
         </div>
@@ -106,15 +147,15 @@
       </a>
     </section>
 
-    <!-- ================= FEATURED ================= -->
+    <!-- ================= FEATURED STICKY 3D STACK ================= -->
     <section class="section section--featured" id="featured">
       <div class="shell">
         <header class="section__head" data-reveal>
-          <p class="eyebrow">01 — Featured</p>
+          <p class="eyebrow"><span class="dot"></span> Featured Work</p>
           <h2 class="section__title">Six I'd put my name on</h2>
           <p class="section__lede">
             Security operations, developer tooling, AI and consumer apps — the work that
-            took the most iteration to get right.
+            took the most iteration to get right. Click any card to inspect deliverables and architecture.
           </p>
         </header>
       </div>
@@ -124,32 +165,243 @@
       </div>
     </section>
 
-    <!-- ================= ALL PROJECTS ================= -->
+    <!-- ================= HORIZONTAL SPATIAL CANVAS ================= -->
+    <section class="exp-section" id="journey">
+      <div class="exp-sticky-viewport" id="expStickyViewport">
+        <div class="exp-grid-bg" aria-hidden="true"></div>
+        <div class="exp-tickers" aria-hidden="true">
+          <div id="exp-ticker-top">DEVSECOPS • HONEYPOTS • APPLIED AI • SIEM • DISTILBERT • FLUTTER • WEBRTC • ZERO-KNOWLEDGE •</div>
+          <div id="exp-ticker-bottom">2023 — SECURITY LABS • 2024 — APPLIED NLP • 2025 — DEVSECOPS PIPELINES • 2026 — PRODUCTION SYSTEMS •</div>
+        </div>
+
+        <header class="exp-hud">
+          <div style="display:flex; align-items:center; gap:12px;">
+            <span class="dot"></span>
+            <span id="exp-hud-phase">SECURITY &amp; HONEYPOTS</span>
+          </div>
+          <div class="exp-hud-track">
+            <div id="exp-hud-progress"></div>
+          </div>
+        </header>
+
+        <div class="exp-stage-wrap">
+          <div id="exp-horizontal-stage">
+            <!-- Panel 0: Intro -->
+            <div class="exp-panel exp-panel--intro">
+              <div class="exp-panel-inner">
+                <span class="exp-panel-eyebrow">FOUNDATION &amp; ARCHITECTURE</span>
+                <h2 class="exp-panel-title">WHERE I'VE<br>BUILT</h2>
+                <p class="exp-panel-desc">A guided spatial tour across four specialized engineering domains. Scroll vertically to travel through the stack.</p>
+              </div>
+            </div>
+
+            <!-- Panel 1: Security -->
+            <div class="exp-panel">
+              <div class="exp-date-bg">SECURITY</div>
+              <div class="exp-panel-inner">
+                <span class="exp-panel-eyebrow">THREAT INTELLIGENCE &amp; HONEYPOTS</span>
+                <h3 class="exp-panel-title">DECOYS &amp;<br>TELEMETRY</h3>
+                <p class="exp-panel-desc">Built real-world decoy SSH, HTTP, FTP and MySQL daemons to capture brute force probes, parsing telemetry onto live interactive global attack maps.</p>
+                <div class="exp-metrics-grid">
+                  <div>
+                    <div class="exp-metric-tag">DAEMONS</div>
+                    <div class="exp-metric-val">5 Low-Interaction Decoys</div>
+                  </div>
+                  <div>
+                    <div class="exp-metric-tag">TELEMETRY</div>
+                    <div class="exp-metric-val">100k+ Scan Packets / Day</div>
+                  </div>
+                  <div>
+                    <div class="exp-metric-tag">STACK</div>
+                    <div class="exp-metric-val">FastAPI, Next.js, GeoIP</div>
+                  </div>
+                </div>
+                <button type="button" class="btn btn--solid" onclick="openProjectModalByIndex(0)">Inspect Architecture ↗</button>
+              </div>
+            </div>
+
+            <!-- Panel 2: DevSecOps -->
+            <div class="exp-panel">
+              <div class="exp-date-bg">DEVSECOPS</div>
+              <div class="exp-panel-inner">
+                <span class="exp-panel-eyebrow">STATIC ANALYSIS &amp; CLI TOOLING</span>
+                <h3 class="exp-panel-title">SENTINEL<br>UNIFIED ENGINE</h3>
+                <p class="exp-panel-desc">Single-pass DevSecOps pipeline unifying code, dependency, secrets, and live application audits with automated finding deduplication and a VS Code diagnostics engine.</p>
+                <div class="exp-metrics-grid">
+                  <div>
+                    <div class="exp-metric-tag">ORCHESTRATION</div>
+                    <div class="exp-metric-val">Golang Multi-Scanner CLI</div>
+                  </div>
+                  <div>
+                    <div class="exp-metric-tag">IDE EXTENSION</div>
+                    <div class="exp-metric-val">VS Code Diagnostic Provider</div>
+                  </div>
+                  <div>
+                    <div class="exp-metric-tag">PIPELINE</div>
+                    <div class="exp-metric-val">Zero Duplicate Findings</div>
+                  </div>
+                </div>
+                <button type="button" class="btn btn--solid" onclick="openProjectModalByIndex(1)">Inspect Sentinel ↗</button>
+              </div>
+            </div>
+
+            <!-- Panel 3: Applied AI -->
+            <div class="exp-panel">
+              <div class="exp-date-bg">APPLIED AI</div>
+              <div class="exp-panel-inner">
+                <span class="exp-panel-eyebrow">FINE-TUNED TRANSFORMERS &amp; NLP</span>
+                <h3 class="exp-panel-title">SKILLGAP AI &amp;<br>ANALYTICS</h3>
+                <p class="exp-panel-desc">Fine-tuned DistilBERT transformer models paired with custom resume and job description token parsers to evaluate ATS compatibility, semantic match, and syllabus deficits.</p>
+                <div class="exp-metrics-grid">
+                  <div>
+                    <div class="exp-metric-tag">MODEL</div>
+                    <div class="exp-metric-val">Fine-Tuned DistilBERT</div>
+                  </div>
+                  <div>
+                    <div class="exp-metric-tag">PRECISION</div>
+                    <div class="exp-metric-val">98.4% Token Accuracy</div>
+                  </div>
+                  <div>
+                    <div class="exp-metric-tag">INTERFACE</div>
+                    <div class="exp-metric-val">FastAPI + React Canvas</div>
+                  </div>
+                </div>
+                <button type="button" class="btn btn--solid" onclick="openProjectModalByIndex(2)">Inspect SkillGap AI ↗</button>
+              </div>
+            </div>
+
+            <!-- Panel 4: Production Mobile & Apps -->
+            <div class="exp-panel">
+              <div class="exp-date-bg">APPS</div>
+              <div class="exp-panel-inner">
+                <span class="exp-panel-eyebrow">MOBILE DIGITAL WELLBEING</span>
+                <h3 class="exp-panel-title">NLP-DIGITOX<br>&amp; WEBRTC</h3>
+                <p class="exp-panel-desc">Zero-ad, zero-telemetry Android wellbeing suite supporting 28 languages built with Flutter, plus peer-to-peer encrypted WebRTC calling suites without third-party relays.</p>
+                <div class="exp-metrics-grid">
+                  <div>
+                    <div class="exp-metric-tag">LOCALIZATION</div>
+                    <div class="exp-metric-val">28 Natural Languages</div>
+                  </div>
+                  <div>
+                    <div class="exp-metric-tag">PRIVACY</div>
+                    <div class="exp-metric-val">Zero Telemetry &amp; Relays</div>
+                  </div>
+                  <div>
+                    <div class="exp-metric-tag">FRAMEWORK</div>
+                    <div class="exp-metric-val">Flutter, Dart, WebRTC</div>
+                  </div>
+                </div>
+                <button type="button" class="btn btn--solid" onclick="openProjectModalByIndex(3)">Inspect NLP-Digitox ↗</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <footer class="exp-footer">
+          <div class="exp-jump-pills">
+            <button type="button" class="exp-jump-btn is-active" data-progress="0.18">SECURITY</button>
+            <button type="button" class="exp-jump-btn" data-progress="0.45">DEVSECOPS</button>
+            <button type="button" class="exp-jump-btn" data-progress="0.72">AI &amp; NLP</button>
+            <button type="button" class="exp-jump-btn" data-progress="0.94">MOBILE APPS</button>
+          </div>
+          <span style="font-family:ui-monospace, monospace; font-size:0.72rem; color:#888;">SCROLL TO ADVANCE →</span>
+        </footer>
+      </div>
+    </section>
+
+    <!-- ================= 04. SCROLL-EXPAND MEDIA (ABOUT) ================= -->
+    <section class="sem-section" id="about">
+      <div class="sem-viewport" id="semViewport">
+        <div class="sem-bg" id="semBg"></div>
+
+        <div class="sem-split-title">
+          <h2 id="sem-title-first">SECURITY</h2>
+          <h2 id="sem-title-rest">FIRST</h2>
+        </div>
+
+        <div class="sem-stage">
+          <div id="sem-media-container">
+            <div class="sem-media-inner">
+              <img id="sem-media-img" src="./assets/img/projects/honeypot-map.svg" alt="Security Threat Modeling Architecture">
+              <img id="sem-media-blur" src="./assets/img/projects/honeypot-map.svg" alt="" aria-hidden="true">
+              <div id="sem-media-overlay"></div>
+
+              <div id="sem-media-content">
+                <div class="sem-content-top">
+                  <h3>THREAT MODELING FIRST, ALWAYS</h3>
+                  <span class="sem-badge">AFJAL ANSARI • 2026</span>
+                </div>
+
+                <div class="sem-content-bottom">
+                  <div class="sem-disciplines">
+                    <span class="dot"></span>
+                    <span>DEVSECOPS &bull; SIEM &bull; APPLIED ML &bull; CRYPTOGRAPHY &bull; FLUTTER</span>
+                  </div>
+                  <p class="sem-summary">
+                    Most of my work starts with a threat model and ends with a tool someone can actually run. That habit came from building honeypots, SIEM pipelines and encryption services — the kind of software where a quiet bug is worse than a loud crash.
+                  </p>
+                  <div class="sem-actions">
+                    <button type="button" class="btn btn--solid" onclick="openContactModal()" style="pointer-events:auto;">Start a Conversation</button>
+                    <a class="btn btn--ghost" href="#work" style="pointer-events:auto; color:#fff; border-color:rgba(255,255,255,0.25);">Explore All 15 Projects</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="sem-card-meta">
+              <p id="sem-date">SYSTEM ARCHITECT</p>
+              <p id="sem-scroll-prompt">SCROLL TO EXPAND</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 05. ALL PROJECTS ================= -->
     <section class="section section--work" id="work">
       <div class="shell">
         <header class="section__head" data-reveal>
-          <p class="eyebrow">02 — Everything</p>
-          <h2 class="section__title">All projects</h2>
-          <p class="section__lede">Filter by domain. Every card links to its source.</p>
+          <p class="eyebrow"><span class="dot"></span> All Projects</p>
+          <h2 class="section__title" id="workSectionTitle">All 15 Projects</h2>
+          <p class="section__lede">Filter by domain. Click inspect to view full architecture details, or open source directly on GitHub.</p>
         </header>
 
-        <div class="filters" role="group" aria-label="Filter projects by category">
-          <button class="chip is-active" data-filter="all" aria-pressed="true">
-            All <span class="chip__count" data-count="all">0</span>
-          </button>
-          <button class="chip" data-filter="security" aria-pressed="false">
-            Security &amp; Crypto <span class="chip__count" data-count="security">0</span>
-          </button>
-          <button class="chip" data-filter="ai" aria-pressed="false">
-            AI &amp; Data <span class="chip__count" data-count="ai">0</span>
-          </button>
-          <button class="chip" data-filter="apps" aria-pressed="false">
-            Apps &amp; Web <span class="chip__count" data-count="apps">0</span>
-          </button>
+        <div style="display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:16px;">
+          <div class="filters" role="group" aria-label="Filter projects by category" style="margin-bottom:0;">
+            <button class="chip is-active" data-filter="all" aria-pressed="true">
+              All <span class="chip__count" data-count="all">0</span>
+            </button>
+            <button class="chip" data-filter="security" aria-pressed="false">
+              Security &amp; Crypto <span class="chip__count" data-count="security">0</span>
+            </button>
+            <button class="chip" data-filter="ai" aria-pressed="false">
+              AI &amp; Data <span class="chip__count" data-count="ai">0</span>
+            </button>
+            <button class="chip" data-filter="apps" aria-pressed="false">
+              Apps &amp; Web <span class="chip__count" data-count="apps">0</span>
+            </button>
+          </div>
+
+          <div class="work-view-toggle" role="group" aria-label="Project view mode">
+            <button type="button" class="work-view-btn is-active" id="viewModeRibbon" onclick="setWorkViewMode('ribbon')">3D Ribbon</button>
+            <button type="button" class="work-view-btn" id="viewModeGrid" onclick="setWorkViewMode('grid')">Grid</button>
+          </div>
         </div>
 
-        <div class="cards" id="cards">
-          <!-- grid cards injected from projects.json -->
+        <!-- 3D Liquid Ribbon Transition Carousel (from reference) -->
+        <div class="work-carousel-wrap" id="workCarouselWrap" data-reveal>
+          <div id="allProjectsCarousel" class="work-carousel-stage">
+            <!-- FlexCarousel mounts here -->
+          </div>
+          <div class="work-carousel-controls">
+            <button type="button" class="work-carousel-btn" id="carouselPrevBtn" onclick="if(window.flexCarouselInstance) window.flexCarouselInstance.prev()" aria-label="Previous project">←</button>
+            <span class="work-carousel-hint">DRAG OR SCROLL TO BROWSE • CLICK TO INSPECT</span>
+            <button type="button" class="work-carousel-btn" id="carouselNextBtn" onclick="if(window.flexCarouselInstance) window.flexCarouselInstance.next()" aria-label="Next project">→</button>
+          </div>
+        </div>
+
+        <div class="cards cards--hidden" id="cards">
+          <!-- grid cards injected from projects.json with modal trigger -->
         </div>
 
         <p class="cards__empty" id="cardsEmpty" hidden>No projects in this category.</p>
@@ -160,9 +412,9 @@
     <section class="section section--stack" id="stack">
       <div class="shell">
         <header class="section__head" data-reveal>
-          <p class="eyebrow">03 — Stack</p>
+          <p class="eyebrow"><span class="dot"></span> Tech Stack</p>
           <h2 class="section__title">Tools I reach for</h2>
-          <p class="section__lede">Drawn straight from the projects above — nothing listed that isn't used.</p>
+          <p class="section__lede">Drawn straight from the projects above — nothing listed that isn't actively used in production.</p>
         </header>
         <div class="stack-grid" id="skillGroups">
           <!-- skill groups injected from projects.json -->
@@ -170,43 +422,30 @@
       </div>
     </section>
 
-    <!-- ================= ABOUT ================= -->
-    <section class="section section--about" id="about">
-      <div class="shell about">
-        <div class="about__copy" data-reveal>
-          <p class="eyebrow">04 — About</p>
-          <h2 class="section__title">Security first,<br>always.</h2>
-          <p>
-            Most of my work starts with a threat model and ends with a tool someone can
-            actually run. That habit came from building honeypots, SIEM pipelines and
-            file-encryption services — the kind of software where a quiet bug is worse
-            than a loud crash.
-          </p>
-          <p>
-            Before that I spent time on applied ML and NLP, which is where SkillGap AI and
-            the AQI health planner came from. These days I care most about the seam between
-            the two: AI that ships, and security tooling that doesn't get in the way.
-          </p>
-          <div class="about__cta">
-            <a class="btn btn--solid" href="https://github.com/DraculaHub786" target="_blank" rel="noopener">See the source</a>
-            <a class="btn btn--ghost" href="#work">Browse projects</a>
+    <!-- ================= CONTACT / CALLOUT ================= -->
+    <section class="section section--contact" id="contact">
+      <div class="shell">
+        <div class="contact-box" data-reveal>
+          <div class="contact-box__head">
+            <p class="eyebrow"><span class="dot"></span> Let's Connect</p>
+            <h2 class="contact-box__title" onclick="openContactModal()">
+              LET'S BUILD SOMETHING
+            </h2>
+            <p class="contact-box__lede">
+              Available for DevSecOps pipelines, applied AI integrations, backend architecture, and security research contracts.
+            </p>
           </div>
-        </div>
-
-        <div class="about__card" data-reveal>
-          <div class="about__card-head">
-            <span class="about__avatar" aria-hidden="true">AA</span>
-            <div>
-              <p class="about__name">Afjal Ansari</p>
-              <p class="about__role">Security · AI · Backend</p>
-            </div>
+          <div class="contact-box__actions">
+            <button type="button" class="btn btn--solid" onclick="openContactModal()">
+              Start a Conversation
+            </button>
+            <button type="button" class="btn btn--ghost" onclick="copyEmail()">
+              Copy Email
+            </button>
+            <a class="btn btn--ghost" href="https://github.com/DraculaHub786" target="_blank" rel="noopener">
+              GitHub Profile ↗
+            </a>
           </div>
-          <dl class="about__facts">
-            <div><dt>Focus</dt><dd>Security tooling &amp; applied AI</dd></div>
-            <div><dt>Comfortable in</dt><dd>Python, Go, TypeScript, Dart</dd></div>
-            <div><dt>Builds with</dt><dd>Flask, FastAPI, Next.js, Flutter</dd></div>
-            <div><dt>Open to</dt><dd>Security internships &amp; freelance builds</dd></div>
-          </dl>
         </div>
       </div>
     </section>
@@ -223,10 +462,95 @@
         <a href="#about">About</a>
         <a href="https://github.com/DraculaHub786" target="_blank" rel="noopener">GitHub</a>
       </nav>
-      <p class="footer__copy">© 2026 Afjal Ansari</p>
+      <p class="footer__copy">&copy; 2026 Afjal Ansari</p>
     </div>
   </footer>
 
-  <script src="/script.js"></script>
+  <!-- ================= MODALS ================= -->
+  <!-- Project Inspection Modal -->
+  <div class="modal-overlay" id="projectModal" onclick="if(event.target === this) closeProjectModal()" role="dialog" aria-modal="true" aria-labelledby="modalProjectTitle">
+    <div class="modal-dialog" id="projectModalCard">
+      <div class="modal-header">
+        <span class="modal-category" id="modalProjectCategory">CATEGORY</span>
+        <h3 class="modal-title" id="modalProjectTitle">Project Title</h3>
+        <button class="modal-close-btn" onclick="closeProjectModal()" aria-label="Close dialog">✕</button>
+      </div>
+      <div class="modal-media" id="modalProjectMedia">
+        <img id="modalProjectImg" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='450' fill='%23ebe3d5'%3E%3C/svg%3E" alt="Project Preview">
+      </div>
+      <p class="modal-desc" id="modalProjectDesc">Project description</p>
+
+      <div class="modal-highlights" id="modalProjectHighlights">
+        <div class="modal-highlights-title">Key Highlights</div>
+        <div class="modal-highlights-body" id="modalProjectStats">Highlights text</div>
+      </div>
+
+      <div class="modal-deliverables" id="modalProjectDeliverablesWrap">
+        <h4 class="modal-deliverables-title">Key Deliverables</h4>
+        <ul class="modal-deliverables-list" id="modalProjectDeliverables">
+          <!-- Injected dynamically -->
+        </ul>
+      </div>
+
+      <div class="modal-tags" id="modalProjectTags">
+        <!-- Injected dynamically -->
+      </div>
+
+      <div class="modal-actions" id="modalProjectActions">
+        <!-- Source and Live demo links injected dynamically -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Contact Modal -->
+  <div class="modal-overlay" id="contactModal" onclick="if(event.target === this) closeContactModal()" role="dialog" aria-modal="true" aria-labelledby="contactModalTitle">
+    <div class="modal-dialog" id="contactModalCard" style="max-width:500px;">
+      <div class="modal-header">
+        <span class="modal-category">START A CONVERSATION</span>
+        <h3 class="modal-title" id="contactModalTitle">Let's Build Something</h3>
+        <button class="modal-close-btn" onclick="closeContactModal()" aria-label="Close dialog">✕</button>
+      </div>
+      <form id="contactForm" action="https://formsubmit.co/afjalansari29162@gmail.com" method="POST" target="formSubmitIframe" onsubmit="return handleContactSubmit(event)">
+        <!-- FormSubmit Real Email Gateway -->
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="_template" value="table">
+        <input type="hidden" name="_subject" id="formSubject" value="[Portfolio Inquiry] From DraculaHub786">
+        <input type="hidden" name="_autoresponse" value="Thank you for reaching out to Afjal Ansari! Your inquiry has been received, and I will get back to you shortly.">
+
+        <div class="form-group">
+          <label class="form-label" for="contactName">Your Name</label>
+          <input type="text" id="contactName" name="name" class="form-input" required placeholder="Alex Turner">
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="contactEmail">Email Address</label>
+          <input type="email" id="contactEmail" name="email" class="form-input" required placeholder="alex@company.com">
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="contactType">Project Domain</label>
+          <select id="contactType" name="domain" class="form-select">
+            <option value="Security Tooling / DevSecOps">Security Tooling &amp; DevSecOps</option>
+            <option value="Applied AI / NLP Integration">Applied AI &amp; NLP Integration</option>
+            <option value="Full Stack Production Web App">Full Stack Production Web App</option>
+            <option value="Android Mobile App">Android Mobile App</option>
+            <option value="Security Auditing & Penetration">Security Auditing &amp; Penetration</option>
+            <option value="Other Collaboration">Other Collaboration</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="contactMessage">Message</label>
+          <textarea id="contactMessage" name="message" class="form-textarea" rows="3" required placeholder="Tell me about your goals, stack, and timeline..."></textarea>
+        </div>
+        <button type="submit" id="contactSubmitBtn" class="btn btn--solid" style="width:100%; justify-content:center; padding:13px;">
+          Send Message
+        </button>
+        <p style="font-size:0.75rem; color:var(--ink-faint); text-align:center; margin-top:10px;">
+          Real email dispatched to <span style="font-family:ui-monospace, monospace; color:var(--orange-deep);">afjalansari29162@gmail.com</span>
+        </p>
+      </form>
+      <iframe name="formSubmitIframe" id="formSubmitIframe" style="display:none;" aria-hidden="true"></iframe>
+    </div>
+  </div>
+
+  <script src="./script.js?v=3.5"></script>
 </body>
 </html>

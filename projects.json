@@ -81,14 +81,14 @@
       "image": "/assets/img/projects/aqi-health.svg"
     },
     {
-      "title": "StreamGrab",
+      "title": "AuvidReaper",
       "category": "Apps",
       "featured": false,
-      "desc": "Video and audio downloader, already live on Render",
+      "desc": "Universal audio and video downloader, live in production",
       "tags": ["Flask", "yt-dlp", "downloading"],
       "github": "https://github.com/DraculaHub786/StreamGrab",
-      "live": "https://draculahub786.render.com",
-      "image": "/assets/img/projects/streamgrab.svg"
+      "live": "https://auvidreaper.nlpdigitox.me/",
+      "image": "/assets/img/projects/image.png"
     },
     {
       "title": "Error Sound Alert",

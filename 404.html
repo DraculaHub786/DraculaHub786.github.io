@@ -2,28 +2,533 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>404 • DraculaHub786 Portfolio</title>
+  <title>404: Endpoint Not Found • DraculaHub786</title>
+  <meta name="description" content="The requested endpoint could not be resolved on the DraculaHub786 portfolio. Explore shipped security tools, AI systems, and engineering projects.">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="/styles.css">
+  <meta name="theme-color" content="#fbf6ee">
+
+  <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..700&family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap">
+  <link rel="stylesheet" href="./styles.css?v=3.6">
 </head>
 <body>
-  <nav class="navbar" style="padding: 20px;">
-    <div class="nav-left">
-      <a href="#" class="nav-brand"><span class="brand-accent">DraculaHub</span><span class="brand-num">786</span></a>
+  <!-- Top Progress Bar & Film Grain Overlay -->
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true" style="transform: scaleX(1);"></div>
+  <div class="grain" aria-hidden="true"></div>
+
+  <!-- Mobile Drawer Menu -->
+  <div class="mobile-drawer" id="mobileDrawer" aria-hidden="true" onclick="if(event.target === this) toggleMobileMenu()">
+    <div class="mobile-drawer-body" id="mobileDrawerContent">
+      <div>
+        <div style="display:flex; justify-content:space-between; align-items:center; padding-bottom:16px; border-bottom:1px solid var(--line);">
+          <span style="font-family:var(--font-display); font-weight:800; font-size:1.25rem;">DraculaHub<b>786</b></span>
+          <button class="modal-close-btn" onclick="toggleMobileMenu()" aria-label="Close menu" style="position:static; transform:none;">✕</button>
+        </div>
+        <nav class="mobile-nav-links">
+          <a class="mobile-nav-link" href="./index.html#featured" onclick="toggleMobileMenu()">Featured</a>
+          <a class="mobile-nav-link" href="./index.html#journey" onclick="toggleMobileMenu()">Journey</a>
+          <a class="mobile-nav-link" href="./index.html#about" onclick="toggleMobileMenu()">About</a>
+          <a class="mobile-nav-link" href="./index.html#work" onclick="toggleMobileMenu()">All Projects</a>
+          <a class="mobile-nav-link" href="./index.html#stack" onclick="toggleMobileMenu()">Tech Stack</a>
+          <a class="mobile-nav-link" href="./index.html#contact" onclick="toggleMobileMenu()">Contact</a>
+        </nav>
+      </div>
+      <div>
+        <a class="btn btn--solid" href="./index.html#contact" style="width:100%; justify-content:center;">Let's Talk</a>
+        <p style="font-size:0.75rem; color:var(--ink-faint); text-align:center; margin-top:14px;">Afjal Ansari • Security &amp; AI</p>
+      </div>
     </div>
-  </nav>
-  <main style="min-height: calc(100vh - 160px); display: flex; align-items: center; justify-content: center;">
-    <div style="text-align: center; max-width: 600px;">
-      <h1 style="font-family:'Cormorant Garamond',Georgia,serif; font-size:4rem; margin-bottom:1rem;">404</h1>
-      <p style="color:var(--muted); margin-bottom:2rem;">Project not found</p>
-      <a href="/" class="footer-github" style="font-size:1rem;">Back to home</a>
+  </div>
+
+  <!-- ================= NAV ================= -->
+  <header class="nav" id="top">
+    <a class="nav__brand" href="./index.html" aria-label="DraculaHub786 home">
+      <span class="nav__mark" aria-hidden="true">D</span>
+      <span class="nav__name">DraculaHub<b>786</b></span>
+    </a>
+
+    <nav class="nav__links" id="navLinks" aria-label="Sections">
+      <a href="./index.html#featured">Featured</a>
+      <a href="./index.html#journey">Journey</a>
+      <a href="./index.html#about">About</a>
+      <a href="./index.html#work">Projects</a>
+      <a href="./index.html#stack">Stack</a>
+      <a class="nav__links-gh" href="https://github.com/DraculaHub786" target="_blank" rel="noopener">
+        GitHub
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 17L17 7M17 7H8M17 7V16" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </nav>
+
+    <div class="nav__actions">
+      <a class="btn btn--sm btn--solid" href="./index.html">Back to Home</a>
+      <button class="nav__toggle" id="navToggle" onclick="toggleMobileMenu()" aria-label="Toggle menu" aria-expanded="false" aria-controls="mobileDrawer">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ================= 404 MAIN ================= -->
+  <main class="error-page">
+    <div class="hero__aura" aria-hidden="true"></div>
+    <div class="hero__grid" aria-hidden="true"></div>
+
+    <div class="shell error-hero">
+      <!-- Animated Status Badges -->
+      <div class="error-badge-row">
+        <span class="status-chip status-chip--error">
+          <span class="status-chip__dot"></span> HTTP 404 // ROUTE_NOT_RESOLVED
+        </span>
+        <span class="status-chip status-chip--dim" id="protocolChip">PORT: 443 (TLS 1.3 SECURE)</span>
+      </div>
+
+      <!-- Monumental 404 Display -->
+      <div class="error-number-wrap">
+        <div class="error-number metallic-title">404</div>
+      </div>
+
+      <h1 class="error-title">
+        Thread Lost in the <em>Architecture.</em>
+      </h1>
+
+      <p class="error-lede">
+        The requested endpoint <code id="missingPath" style="font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; color:var(--orange-deep); background:var(--orange-wash); padding:3px 8px; border-radius:6px; font-weight:600; font-size:0.92em;">/unresolved-endpoint</code> could not be located on this cluster. It may have been relocated, refactored, or was never committed.
+      </p>
+
+      <!-- Realistic Interactive Request Simulation Terminal -->
+      <div class="error-telemetry" id="telemetryBox" aria-label="Simulated terminal diagnostic trace">
+        <div class="error-telemetry__bar">
+          <div class="error-telemetry__dots">
+            <span class="error-telemetry__dot"></span>
+            <span class="error-telemetry__dot"></span>
+            <span class="error-telemetry__dot"></span>
+          </div>
+          <span class="error-telemetry__title">afjal@edge-gateway:~ • zsh (non-editable)</span>
+          <div class="error-telemetry__actions">
+            <span class="term-badge-live" id="termLiveStatus">Live</span>
+            <button type="button" class="term-replay-btn" id="replayTraceBtn" onclick="runTraceSimulation(true)" title="Re-run terminal request simulation" aria-label="Replay simulation">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M1 4v6h6M23 20v-6h-6"/><path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 0 1 3.51 15"/></svg>
+              Replay
+            </button>
+          </div>
+        </div>
+        <div class="error-telemetry__body" id="termOutput" role="log" aria-live="polite">
+          <!-- Live simulated request terminal stream -->
+        </div>
+      </div>
+
+      <!-- Action Cluster -->
+      <div class="error-actions">
+        <a class="btn btn--solid" href="./index.html">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M19 12H5M5 12L12 19M5 12L12 5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Return to Portfolio Home
+        </a>
+        <a class="btn btn--ghost" href="./index.html#work">
+          Browse 15 Shipped Projects
+        </a>
+        <a class="btn btn--ghost" href="./index.html#featured">
+          Flagship Reel
+        </a>
+        <a class="btn btn--ghost" href="./index.html#contact">
+          Report Broken Link
+        </a>
+      </div>
+
+      <!-- Recommended Pathways -->
+      <div class="error-shortcuts">
+        <p class="error-shortcuts__heading">Recommended Destinations</p>
+        <div class="error-cards-grid">
+          <a class="error-card" href="./index.html#featured">
+            <div class="error-card__icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+            </div>
+            <span class="error-card__tag">01 / FEATURED</span>
+            <div class="error-card__title">
+              Flagship Works
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H8M17 7V16"/></svg>
+            </div>
+            <p class="error-card__desc">Interactive 3D reel, live deployment previews, and engineering deep-dives.</p>
+          </a>
+
+          <a class="error-card" href="./index.html#work">
+            <div class="error-card__icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
+            </div>
+            <span class="error-card__tag">02 / DIRECTORY</span>
+            <div class="error-card__title">
+              All 15 Projects
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H8M17 7V16"/></svg>
+            </div>
+            <p class="error-card__desc">Vulnerability scanners, AI pipelines, Web3 wallets, and production systems.</p>
+          </a>
+
+          <a class="error-card" href="./index.html#journey">
+            <div class="error-card__icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>
+            </div>
+            <span class="error-card__tag">03 / TIMELINE</span>
+            <div class="error-card__title">
+              Spatial Journey
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H8M17 7V16"/></svg>
+            </div>
+            <p class="error-card__desc">Interactive timeline tracking evolution across DevSecOps, AI, and systems engineering.</p>
+          </a>
+        </div>
+      </div>
     </div>
   </main>
-  <footer class="footer" style="padding: 20px; margin-top: 0;">
-    <div class="footer-inner">
-      <p>2026 DraculaHub786</p>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="footer">
+    <div class="shell footer__inner">
+      <p class="footer__brand">DraculaHub<b>786</b></p>
+      <nav class="footer__links" aria-label="Footer">
+        <a href="./index.html#featured">Featured</a>
+        <a href="./index.html#work">Projects</a>
+        <a href="./index.html#stack">Stack</a>
+        <a href="./index.html#about">About</a>
+        <a href="https://github.com/DraculaHub786" target="_blank" rel="noopener">GitHub</a>
+      </nav>
+      <p class="footer__copy">&copy; 2026 Afjal Ansari</p>
     </div>
   </footer>
+
+  <!-- ================= SCRIPTS ================= -->
+  <script>
+    // --- Terminal Request Simulation Engine (Human Real-Time Speed & Continuous Loop) ---
+    var activeSimulationTimeout = null;
+    var simulationIteration = 0;
+
+    var simulatedSamplePaths = [
+      '/api/v2/unresolved-endpoint',
+      '/tools/cve-scanner/v3/beta',
+      '/modules/auth/oauth-callback'
+    ];
+
+    function getSimulatedPath() {
+      try {
+        var p = window.location.pathname || '';
+        if (p && p !== '/' && !p.endsWith('404.html')) {
+          return p;
+        }
+      } catch (e) {}
+      var path = simulatedSamplePaths[simulationIteration % simulatedSamplePaths.length];
+      simulationIteration++;
+      return path;
+    }
+
+    // Realistic human keystroke timing:
+    // Natural typing speed: brisk, human developer cadence (~1.8s command typing)
+    function getHumanKeystrokeDelay(char) {
+      var base = Math.floor(Math.random() * 12) + 12; // 12ms - 24ms base
+      if (char === ' ') return base + Math.floor(Math.random() * 20) + 18; // 30ms - 48ms on spaces
+      if (char === '/' || char === '-' || char === '.' || char === ':') return base + Math.floor(Math.random() * 15) + 12;
+      if (Math.random() < 0.05) return base + Math.floor(Math.random() * 35) + 25; // momentary micro-hesitation
+      return base;
+    }
+
+    function runTraceSimulation(isManualReplay) {
+      if (activeSimulationTimeout) {
+        clearTimeout(activeSimulationTimeout);
+      }
+      isRedirecting = false;
+      terminalChoiceActive = false;
+
+      var termOutput = document.getElementById('termOutput');
+      var missingPathEl = document.getElementById('missingPath');
+      var liveStatus = document.getElementById('termLiveStatus');
+      if (!termOutput) return;
+
+      var targetPath = getSimulatedPath();
+      if (missingPathEl) {
+        missingPathEl.textContent = targetPath;
+      }
+
+      if (liveStatus) {
+        liveStatus.textContent = 'Simulating...';
+        liveStatus.style.color = 'var(--orange)';
+      }
+
+      termOutput.innerHTML = '';
+
+      var fullCommand = 'curl -i -H "Accept: application/json" https://nlpdigitox.me' + targetPath;
+      var promptLine = document.createElement('div');
+      promptLine.innerHTML = '<span class="t-prompt">dracula@edge-01</span>:<span class="t-path">~</span>$ <span class="t-cmd" id="typedCmd"></span><span class="term-cursor" id="termCursor"></span>';
+      termOutput.appendChild(promptLine);
+
+      var typedCmdEl = document.getElementById('typedCmd');
+      var startTypingTime = null;
+      var totalTypingDuration = 1200; // Balanced human typing cadence: 1.2s
+
+      function typeFrame(now) {
+        if (!startTypingTime) startTypingTime = now;
+        var elapsed = now - startTypingTime;
+        var progress = Math.min(1, elapsed / totalTypingDuration);
+        var targetChars = Math.floor(progress * fullCommand.length);
+
+        if (typedCmdEl) {
+          typedCmdEl.textContent = fullCommand.slice(0, targetChars);
+        }
+        termOutput.scrollTop = termOutput.scrollHeight;
+
+        if (progress < 1) {
+          requestAnimationFrame(typeFrame);
+        } else {
+          // Finished typing: natural human pause before pressing Enter (240ms)
+          var cursor = document.getElementById('termCursor');
+          if (cursor) cursor.remove();
+          activeSimulationTimeout = setTimeout(streamOutputLines, 240);
+        }
+      }
+
+      function typeChar() {
+        requestAnimationFrame(typeFrame);
+      }
+
+      function streamOutputLines() {
+        var gmtDate = new Date().toUTCString();
+        var lines = [
+          { html: '<span class="t-sys">*   Trying 104.21.48.91:443... Connected to nlpdigitox.me.</span>', delay: 60 },
+          { html: '<span class="t-meta">*   TLS 1.3 negotiated: cipher TLS_AES_256_GCM_SHA384 (256-bit)</span>', delay: 75 },
+          { html: '<span class="t-req">&gt;   GET ' + targetPath + ' HTTP/2</span>', delay: 50 },
+          { html: '<span class="t-req">&gt;   Host: nlpdigitox.me</span>', delay: 40 },
+          { html: '<span class="t-req">&gt;   User-Agent: curl/8.7.1 (security-audit)</span>', delay: 45 },
+          { html: '<span class="t-header">&lt;   </span><span class="t-404">HTTP/2 404 NOT FOUND</span>', delay: 85 },
+          { html: '<span class="t-header">&lt;   date: ' + gmtDate + '</span>', delay: 35 },
+          { html: '<span class="t-header">&lt;   server: DraculaHub786-Production-Gateway/v3.5</span>', delay: 35 },
+          { html: '<span class="t-header">&lt;   content-type: text/html; charset=UTF-8</span>', delay: 35 },
+          { html: '<span class="t-header">&lt;   x-routing-error: 0x404_ROUTE_MISMATCH</span>', delay: 35 },
+          { html: '<span class="t-header">&lt;   x-fallback-action: suggest_safe_navigation</span>', delay: 40 },
+          { html: '<span class="t-warn">[!] ERROR: Path not located in production cluster manifest.</span>', delay: 75 },
+          { html: '<span class="t-info">[i] Safe recovery points:</span>', delay: 50 },
+          { html: '<a href="./index.html" class="term-route-option" onclick="handleTerminalChoice(event, \'1\')" role="button" tabindex="0" title="Go to Home Portfolio (/)">➜ <span class="term-opt-badge">[1]</span> <span class="term-opt-label">Home Portfolio:</span> <span class="term-opt-target">/</span></a>', delay: 45 },
+          { html: '<a href="./index.html#featured" class="term-route-option" onclick="handleTerminalChoice(event, \'2\')" role="button" tabindex="0" title="Go to Flagship Works (/#featured)">➜ <span class="term-opt-badge">[2]</span> <span class="term-opt-label">Flagship Works:</span> <span class="term-opt-target">/#featured</span></a>', delay: 45 },
+          { html: '<a href="./index.html#work" class="term-route-option" onclick="handleTerminalChoice(event, \'3\')" role="button" tabindex="0" title="Go to All 15 Projects (/#work)">➜ <span class="term-opt-badge">[3]</span> <span class="term-opt-label">All 15 Projects:</span> <span class="term-opt-target">/#work</span></a>', delay: 45 },
+          { html: '<div class="term-interactive-row" id="choiceInteractiveRow"><span class="t-prompt">dracula@edge-01</span>:<span class="t-path">~</span>$ <span style="color:#e0af68; font-weight:600;">Enter your choice [1-3]:</span> <span class="term-interactive-wrap"><span class="cmd-visible-input" id="visibleChoice">_</span><input type="text" id="terminalChoiceInput" class="cmd-hidden-input" maxlength="1" inputmode="numeric" autocomplete="off" aria-label="Enter choice 1, 2, or 3"><span class="term-cursor" id="choiceCursor"></span></span></div><div class="term-choice-hint" id="choiceHint"><span>💡 Type <span class="term-key">1</span>, <span class="term-key">2</span>, or <span class="term-key">3</span> in terminal or click an option above</span></div>', delay: 80 }
+        ];
+
+        var lineIndex = 0;
+        function outputNextLine() {
+          if (lineIndex < lines.length) {
+            var item = lines[lineIndex];
+            var row = document.createElement('div');
+            row.innerHTML = item.html;
+            termOutput.appendChild(row);
+            termOutput.scrollTop = termOutput.scrollHeight;
+            lineIndex++;
+            if (lineIndex >= 14) {
+              terminalChoiceActive = true;
+            }
+            activeSimulationTimeout = setTimeout(outputNextLine, item.delay);
+          } else {
+            if (liveStatus) {
+              liveStatus.textContent = 'Awaiting Choice';
+              liveStatus.style.color = '#ff9e64';
+            }
+            // Enable interactive input mode for the choice prompt
+            enableInteractiveChoiceMode();
+          }
+        }
+
+        outputNextLine();
+      }
+
+      function enableInteractiveChoiceMode() {
+        terminalChoiceActive = true;
+        var choiceInput = document.getElementById('terminalChoiceInput');
+        var visibleChoice = document.getElementById('visibleChoice');
+        if (choiceInput) {
+          choiceInput.focus();
+
+          choiceInput.addEventListener('input', function() {
+            var val = choiceInput.value.trim();
+            if (['1', '2', '3'].includes(val)) {
+              if (visibleChoice) visibleChoice.textContent = val;
+              handleTerminalChoice(null, val);
+            } else if (val) {
+              choiceInput.value = '';
+              if (visibleChoice) visibleChoice.textContent = '_';
+            }
+          });
+        }
+
+        // Clicking anywhere in the terminal re-focuses the choice input
+        var termBox = document.getElementById('telemetryBox');
+        if (termBox) {
+          termBox.onclick = function() {
+            if (terminalChoiceActive && choiceInput && !isRedirecting) {
+              choiceInput.focus();
+            }
+          };
+        }
+
+        // Loop countdown: gives user 14s to choose; if no interaction, runs clear and resets
+        activeSimulationTimeout = setTimeout(function() {
+          if (terminalChoiceActive && !isRedirecting) {
+            terminalChoiceActive = false;
+            typeClearAndRestartLoop();
+          }
+        }, 14000);
+      }
+
+      function typeClearAndRestartLoop() {
+        var choiceCursor = document.getElementById('choiceCursor');
+        if (choiceCursor) choiceCursor.remove();
+
+        var clearRow = document.createElement('div');
+        clearRow.innerHTML = '<span class="t-prompt">dracula@edge-01</span>:<span class="t-path">~</span>$ <span class="t-cmd" id="clearCmd"></span><span class="term-cursor" id="clearCursor"></span>';
+        termOutput.appendChild(clearRow);
+        termOutput.scrollTop = termOutput.scrollHeight;
+
+        var clearCmdEl = document.getElementById('clearCmd');
+        var clearStr = 'clear';
+        var cIdx = 0;
+
+        function typeClearChar() {
+          if (cIdx < clearStr.length) {
+            if (clearCmdEl) clearCmdEl.textContent += clearStr.charAt(cIdx);
+            cIdx++;
+            termOutput.scrollTop = termOutput.scrollHeight;
+            activeSimulationTimeout = setTimeout(typeClearChar, 25);
+          } else {
+            activeSimulationTimeout = setTimeout(function() {
+              runTraceSimulation(false);
+            }, 180);
+          }
+        }
+
+        activeSimulationTimeout = setTimeout(typeClearChar, 100);
+      }
+
+      // Start typing simulation
+      activeSimulationTimeout = setTimeout(typeChar, isManualReplay ? 60 : 120);
+    }
+
+    // Global Terminal Choice Dispatcher
+    var terminalChoiceActive = false;
+    var isRedirecting = false;
+
+    function handleTerminalChoice(e, choice) {
+      if (typeof e === 'string' && choice === undefined) {
+        choice = e;
+        e = null;
+      }
+      if (e) {
+        if (e.stopPropagation) e.stopPropagation();
+        if (e.preventDefault) e.preventDefault();
+      }
+      if (isRedirecting) return;
+      isRedirecting = true;
+      terminalChoiceActive = false;
+
+      if (activeSimulationTimeout) {
+        clearTimeout(activeSimulationTimeout);
+      }
+
+      var choiceStr = String(choice || '1');
+      var choiceInput = document.getElementById('terminalChoiceInput');
+      var visibleChoice = document.getElementById('visibleChoice');
+      var choiceCursor = document.getElementById('choiceCursor');
+      var liveStatus = document.getElementById('termLiveStatus');
+      var termOutput = document.getElementById('termOutput');
+
+      if (choiceInput) {
+        choiceInput.disabled = true;
+      }
+      if (visibleChoice) {
+        visibleChoice.textContent = choiceStr;
+      }
+      if (choiceCursor) {
+        choiceCursor.remove();
+      }
+
+      var targets = {
+        '1': { url: './index.html', label: 'Home Portfolio', path: '/' },
+        '2': { url: './index.html#featured', label: 'Flagship Works', path: '/#featured' },
+        '3': { url: './index.html#work', label: 'All 15 Projects', path: '/#work' }
+      };
+
+      var selected = targets[choiceStr] || targets['1'];
+
+      if (liveStatus) {
+        liveStatus.textContent = 'Redirecting...';
+        liveStatus.style.color = '#27c93f';
+      }
+
+      if (termOutput) {
+        var log = document.createElement('div');
+        log.className = 'term-dispatch-log';
+        log.innerHTML = '✔ [DISPATCH ' + choiceStr + '] Navigating to <strong>' + selected.label + '</strong> (' + selected.path + ')...';
+        termOutput.appendChild(log);
+        termOutput.scrollTop = termOutput.scrollHeight;
+      }
+
+      // Snappy and reliable redirection
+      setTimeout(function() {
+        window.location.href = selected.url;
+      }, 160);
+    }
+
+    // Global keyboard listener for choices 1, 2, 3
+    window.addEventListener('keydown', function(e) {
+      if (e.key === '1' || e.key === '2' || e.key === '3') {
+        if (!isRedirecting && !['TEXTAREA'].includes(document.activeElement.tagName)) {
+          handleTerminalChoice(e, e.key);
+          return;
+        }
+      }
+
+      // Quick home shortcuts
+      if ((e.key === 'h' || e.key === 'H' || e.key === 'Escape') && !['INPUT', 'TEXTAREA'].includes(document.activeElement.tagName)) {
+        window.location.href = './index.html';
+      }
+    });
+
+    // Start simulation when DOM is ready
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', function() { runTraceSimulation(false); });
+    } else {
+      runTraceSimulation(false);
+    }
+
+    // Subtle 3D card tilt micro-interaction on terminal box
+    (function initTerminalTilt() {
+      var box = document.getElementById('telemetryBox');
+      if (!box || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+      box.addEventListener('mousemove', function(e) {
+        var rect = box.getBoundingClientRect();
+        var x = e.clientX - rect.left - rect.width / 2;
+        var y = e.clientY - rect.top - rect.height / 2;
+        var rotX = (y / (rect.height / 2)) * -4;
+        var rotY = (x / (rect.width / 2)) * 4;
+        box.style.transform = 'perspective(900px) rotateX(' + rotX.toFixed(2) + 'deg) rotateY(' + rotY.toFixed(2) + 'deg) translateY(-2px)';
+      });
+
+      box.addEventListener('mouseleave', function() {
+        box.style.transform = 'perspective(900px) rotateX(0deg) rotateY(0deg) translateY(0)';
+      });
+    })();
+
+    // Mobile drawer toggle
+    function toggleMobileMenu() {
+      var drawer = document.getElementById('mobileDrawer');
+      var btn = document.getElementById('navToggle');
+      if (!drawer) return;
+      var isOpen = drawer.classList.contains('is-open');
+      if (isOpen) {
+        drawer.classList.remove('is-open');
+        drawer.setAttribute('aria-hidden', 'true');
+        if (btn) btn.setAttribute('aria-expanded', 'false');
+        document.body.style.overflow = '';
+      } else {
+        drawer.classList.add('is-open');
+        drawer.setAttribute('aria-hidden', 'false');
+        if (btn) btn.setAttribute('aria-expanded', 'true');
+        document.body.style.overflow = 'hidden';
+      }
+    }
+  </script>
 </body>
 </html>
