@@ -28,7 +28,7 @@
       "tags": ["FastAPI", "React", "TypeScript"],
       "github": "https://github.com/DraculaHub786/NLP-SKILL-GAP-ANALYZER",
       "live": "none",
-      "image": "/assets/img/projects/skilgap-ai.svg"
+      "image": "/assets/img/projects/skilgap-ai.png"
     },
     {
       "title": "NLP-Digitox",
@@ -38,7 +38,7 @@
       "tags": ["Flutter", "Dart", "wellbeing"],
       "github": "https://github.com/DraculaHub786/NLP-digitox",
       "live": "none",
-      "image": "/assets/img/projects/nlp-digitox.svg"
+      "image": "/assets/img/projects/nlp-digitox.png"
     },
     {
       "title": "DecentralChat",
@@ -48,7 +48,7 @@
       "tags": ["Python", "WebRTC", "encryption"],
       "github": "https://github.com/DraculaHub786/Decentral_Chat",
       "live": "none",
-      "image": "/assets/img/projects/decentral-chat.svg"
+      "image": "/assets/img/projects/decentral-chat.png"
     },
     {
       "title": "Nur-e-Haya Hotel Management",
@@ -57,8 +57,8 @@
       "desc": "Hotel management system with 10 user roles, a live kitchen display and an AI concierge",
       "tags": ["Flask", "Firestore", "AI concierge"],
       "github": "https://github.com/DraculaHub786/Hotel-Management-System-firebase",
-      "live": "none",
-      "image": "/assets/img/projects/hotel-management.svg"
+      "live": "https://hotel-management-system-lp6b.onrender.com",
+      "image": "/assets/img/projects/hotel-management.png"
     },
     {
       "title": "SIEM Platform",
@@ -68,7 +68,7 @@
       "tags": ["Flask", "MongoDB", "Socket.IO"],
       "github": "https://github.com/DraculaHub786/SEIM-main",
       "live": "none",
-      "image": "/assets/img/projects/siem-platform.svg"
+      "image": "/assets/img/projects/siem-platform.png"
     },
     {
       "title": "AQI Health Planner",
@@ -88,7 +88,7 @@
       "tags": ["Flask", "yt-dlp", "downloading"],
       "github": "https://github.com/DraculaHub786/StreamGrab",
       "live": "https://auvidreaper.nlpdigitox.me/",
-      "image": "/assets/img/projects/image.png"
+      "image": "/assets/img/projects/auvidreaper.png"
     },
     {
       "title": "Error Sound Alert",
@@ -98,7 +98,7 @@
       "tags": ["JavaScript", "VS Code", "automation"],
       "github": "https://github.com/DraculaHub786/FAAAHH-------",
       "live": "none",
-      "image": "/assets/img/projects/error-sound.svg"
+      "image": "/assets/img/projects/error-sound.png"
     },
     {
       "title": "Crypto Wallet Testnet",

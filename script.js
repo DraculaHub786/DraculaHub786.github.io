@@ -69,7 +69,7 @@ const FALLBACK_PROJECTS = [
     tags: ["FastAPI", "React", "TypeScript"],
     github: "https://github.com/DraculaHub786/NLP-SKILL-GAP-ANALYZER",
     live: "none",
-    image: "./assets/img/projects/skilgap-ai.svg",
+    image: "./assets/img/projects/skilgap-ai.png",
     subtitle: "Fine-Tuned NLP Skill Gap & Resume Analytics",
     stats: "DistilBERT Fine-Tuned Model • 98.4% Token Precision • ATS Scoring",
     deliverables: ["Fine-tuned DistilBERT Transformer", "ATS Resume Parsing Engine", "Real-Time Interactive Match Canvas"]
@@ -82,7 +82,7 @@ const FALLBACK_PROJECTS = [
     tags: ["Flutter", "Dart", "wellbeing"],
     github: "https://github.com/DraculaHub786/NLP-digitox",
     live: "none",
-    image: "./assets/img/projects/nlp-digitox.svg",
+    image: "./assets/img/projects/nlp-digitox.png",
     subtitle: "Android Digital Wellbeing Suite (28 Languages)",
     stats: "28 Languages • Zero Ads / Telemetry • Active Guardian Daemon",
     deliverables: ["Flutter Material 3 UI", "Cross-App Usage Limiter Daemon", "Multi-Language Localization Suite"]
@@ -95,7 +95,7 @@ const FALLBACK_PROJECTS = [
     tags: ["Python", "WebRTC", "encryption"],
     github: "https://github.com/DraculaHub786/Decentral_Chat",
     live: "none",
-    image: "./assets/img/projects/decentral-chat.svg",
+    image: "./assets/img/projects/decentral-chat.png",
     subtitle: "End-to-End Encrypted WebRTC Messenger",
     stats: "AES-256 + ECDH Handshake • P2P Audio/Video • Zero Relays",
     deliverables: ["Direct WebRTC Peer Negotiation", "E2E Message & File Encryption", "Dynamic Mesh Call Architecture"]
@@ -107,8 +107,8 @@ const FALLBACK_PROJECTS = [
     desc: "Hotel management system with 10 user roles, a live kitchen display and an AI concierge",
     tags: ["Flask", "Firestore", "AI concierge"],
     github: "https://github.com/DraculaHub786/Hotel-Management-System-firebase",
-    live: "none",
-    image: "./assets/img/projects/hotel-management.svg",
+    live: "https://hotel-management-system-lp6b.onrender.com",
+    image: "./assets/img/projects/hotel-management.png",
     subtitle: "Full-Stack Hospitality System with AI Concierge",
     stats: "10 Role Permissions • Live Kitchen Telemetry • Real-Time Firebase",
     deliverables: ["10-tier Role-Based Access Control", "Live Kitchen Order Display System", "Integrated AI Guest Concierge"]
@@ -121,7 +121,7 @@ const FALLBACK_PROJECTS = [
     tags: ["Flask", "MongoDB", "Socket.IO"],
     github: "https://github.com/DraculaHub786/SEIM-main",
     live: "none",
-    image: "./assets/img/projects/siem-platform.svg",
+    image: "./assets/img/projects/siem-platform.png",
     subtitle: "Log Streaming & Automated Brute-Force Defense",
     stats: "Socket.IO Real-Time Stream • MongoDB Event Lake • Instant Alerting",
     deliverables: ["High-Throughput Log Collector", "Rule-based Brute Force Detector", "Live Security Operations Console"]
@@ -147,7 +147,7 @@ const FALLBACK_PROJECTS = [
     tags: ["Flask", "yt-dlp", "downloading"],
     github: "https://github.com/DraculaHub786/StreamGrab",
     live: "https://auvidreaper.nlpdigitox.me/",
-    image: "./assets/img/projects/image.png",
+    image: "./assets/img/projects/auvidreaper.png",
     subtitle: "High-Performance Media Extraction Engine",
     stats: "yt-dlp Core • Multi-format Transcoding • Live Production Deployment",
     deliverables: ["High-Speed Stream Downloader", "Format Transcoding Engine", "Production Cloud Deployment"]
@@ -160,7 +160,7 @@ const FALLBACK_PROJECTS = [
     tags: ["JavaScript", "VS Code", "automation"],
     github: "https://github.com/DraculaHub786/FAAAHH-------",
     live: "none",
-    image: "./assets/img/projects/error-sound.svg",
+    image: "./assets/img/projects/error-sound.png",
     subtitle: "Audio Feedback Daemon for Developers",
     stats: "VS Code Extension • Build/Test Failure Trigger • Instant Audio",
     deliverables: ["VS Code Event Listener", "Audio Notification System", "Configurable Audio Trigger Rules"]
@@ -253,8 +253,9 @@ const arrowIcon = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" a
    Boot
    -------------------------------------------------------------------------- */
 async function boot() {
+  window.state = state;
   try {
-    const res = await fetch('./projects.json');
+    const res = await fetch('./projects.json?t=' + Date.now());
     if (res.ok) {
       const json = await res.json();
       if (json && Array.isArray(json.projects) && json.projects.length) {
