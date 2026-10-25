@@ -282,7 +282,8 @@ export function initFlexCarousel(container, options = {}) {
     captions: options.captions !== undefined ? options.captions : true
   };
 
-  container.className = `flex-carousel ${options.className || ''}`.trim();
+  const existingClass = container.className || '';
+  container.className = `${existingClass} flex-carousel ${options.className || ''}`.trim();
   container.style.setProperty('--flex-carousel-half', `${Math.min(Math.max(settings.cardHeight, 0.05), 1) * 50}%`);
   container.setAttribute('role', 'region');
   container.setAttribute('aria-roledescription', 'carousel');
@@ -393,6 +394,8 @@ export function initFlexCarousel(container, options = {}) {
   gl.clearColor(0, 0, 0, 0);
   const canvas = gl.canvas;
   canvas.style.display = 'block';
+  canvas.style.position = 'absolute';
+  canvas.style.inset = '0';
   canvas.style.width = '100%';
   canvas.style.height = '100%';
   canvas.setAttribute('aria-hidden', 'true');
@@ -755,8 +758,11 @@ export function initFlexCarousel(container, options = {}) {
   };
 
   const resize = () => {
-    width = Math.max(1, container.clientWidth);
-    height = Math.max(1, container.clientHeight);
+    const cw = container.clientWidth;
+    const ch = container.clientHeight;
+    if (cw < 10 || ch < 10) return;
+    width = cw;
+    height = ch;
     renderer.dpr = Math.min(window.devicePixelRatio || 1, 2, Math.sqrt(PIXEL_BUDGET / (width * height)));
     renderer.setSize(width, height);
     target.setSize(Math.max(2, Math.round(width * renderer.dpr)), Math.max(2, Math.round(height * renderer.dpr)));
@@ -1284,7 +1290,9 @@ export function initFlexCarousel(container, options = {}) {
       if (canvas.parentNode) canvas.parentNode.removeChild(canvas);
     },
     setItems,
+    resize,
     wake: () => {
+      resize();
       dirty = true;
       start();
     },

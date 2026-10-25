@@ -62,6 +62,7 @@ html {
   scroll-behavior: smooth;
   scroll-padding-top: 88px;
   -webkit-text-size-adjust: 100%;
+  overflow-x: clip;
 }
 
 body {
@@ -73,7 +74,7 @@ body {
   background: var(--cream);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  overflow-x: hidden;
+  overflow-x: clip;
 }
 
 h1, h2, h3, h4, p, dl, dd, figure { margin: 0; }
@@ -940,7 +941,7 @@ section[id], #top { scroll-margin-top: 88px; }
    -------------------------------------------------------------------------- */
 .cards {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr));
   gap: 22px;
 }
 
@@ -1399,22 +1400,29 @@ section[id], #top { scroll-margin-top: 88px; }
    16. Reduced motion
    -------------------------------------------------------------------------- */
 @media (prefers-reduced-motion: reduce) {
-  html { scroll-behavior: auto; }
+  html:not([data-motion="full"]) { scroll-behavior: auto; }
 
-  *:not(.deck, .deck *, .deck-nav, .deck-nav *) {
+  html:not([data-motion="full"]) *:not(.deck, .deck *, .deck-nav, .deck-nav *) {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
 
-  [data-reveal] { opacity: 1 !important; transform: none !important; }
-  .hero__eyebrow, .hero__title, .hero__lede, .hero__cta, .stats { animation: none !important; }
-  .deck { animation: none !important; transform: rotateX(6deg) rotateY(-14deg); }
-  .hero__ring { animation: none !important; }
-  .scroll-cue__dot { animation: none !important; }
-  .stack-item { transform: none !important; opacity: 1 !important; }
-  .card:hover, .btn:hover, .link-btn:hover, .skill-card:hover { transform: none !important; }
+  html:not([data-motion="full"]) [data-reveal] { opacity: 1 !important; transform: none !important; }
+  html:not([data-motion="full"]) .hero__eyebrow,
+  html:not([data-motion="full"]) .hero__title,
+  html:not([data-motion="full"]) .hero__lede,
+  html:not([data-motion="full"]) .hero__cta,
+  html:not([data-motion="full"]) .stats { animation: none !important; }
+  html:not([data-motion="full"]) .deck { animation: none !important; transform: rotateX(6deg) rotateY(-14deg); }
+  html:not([data-motion="full"]) .hero__ring { animation: none !important; }
+  html:not([data-motion="full"]) .scroll-cue__dot { animation: none !important; }
+  html:not([data-motion="full"]) .stack-item { transform: none !important; opacity: 1 !important; }
+  html:not([data-motion="full"]) .card:hover,
+  html:not([data-motion="full"]) .btn:hover,
+  html:not([data-motion="full"]) .link-btn:hover,
+  html:not([data-motion="full"]) .skill-card:hover { transform: none !important; }
 }
 
 /* ==========================================================================
@@ -1872,18 +1880,19 @@ section[id], #top { scroll-margin-top: 88px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .modal-dialog { transform: none !important; }
-  .mobile-drawer-body { transform: none !important; }
-  .about__card { transform: none !important; }
-  #exp-horizontal-stage { transform: none !important; width: 100% !important; flex-direction: column !important; }
-  .exp-sticky-viewport { position: relative !important; height: auto !important; }
-  .exp-section { height: auto !important; }
-  .exp-panel { width: 100% !important; min-height: auto !important; padding-block: 60px !important; }
-  .sem-viewport { position: relative !important; height: auto !important; min-height: 100vh !important; }
-  .sem-section { min-height: auto !important; }
-  #sem-media-container { position: relative !important; width: 92% !important; height: auto !important; transform: none !important; left: auto !important; top: auto !important; margin: 40px auto !important; }
-  #sem-media-content { opacity: 1 !important; pointer-events: auto !important; position: relative !important; }
-  #sem-title-first, #sem-title-rest { transform: none !important; opacity: 1 !important; }
+  html:not([data-motion="full"]) .modal-dialog { transform: none !important; }
+  html:not([data-motion="full"]) .mobile-drawer-body { transform: none !important; }
+  html:not([data-motion="full"]) .about__card { transform: none !important; }
+  html:not([data-motion="full"]) #exp-horizontal-stage { transform: none !important; width: 100% !important; flex-direction: column !important; }
+  html:not([data-motion="full"]) .exp-sticky-viewport { position: relative !important; height: auto !important; }
+  html:not([data-motion="full"]) .exp-section { height: auto !important; }
+  html:not([data-motion="full"]) .exp-panel { width: 100% !important; min-height: auto !important; padding-block: 60px !important; }
+  html:not([data-motion="full"]) .sem-viewport { position: relative !important; height: auto !important; min-height: 100vh !important; }
+  html:not([data-motion="full"]) .sem-section { min-height: auto !important; }
+  html:not([data-motion="full"]) #sem-media-container { position: relative !important; width: 92% !important; height: auto !important; transform: none !important; left: auto !important; top: auto !important; margin: 40px auto !important; }
+  html:not([data-motion="full"]) #sem-media-content { opacity: 1 !important; pointer-events: auto !important; position: relative !important; }
+  html:not([data-motion="full"]) #sem-title-first,
+  html:not([data-motion="full"]) #sem-title-rest { transform: none !important; opacity: 1 !important; }
 }
 
 /* ==========================================================================
@@ -1898,10 +1907,12 @@ section[id], #top { scroll-margin-top: 88px; }
 }
 
 .sem-viewport {
+  position: -webkit-sticky;
   position: sticky;
   top: 0;
   width: 100%;
   height: 100vh;
+  height: 100svh;
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -2128,10 +2139,12 @@ section[id], #top { scroll-margin-top: 88px; }
 }
 
 .exp-sticky-viewport {
+  position: -webkit-sticky;
   position: sticky;
   top: 0;
   width: 100%;
   height: 100vh;
+  height: 100svh;
   overflow: hidden;
   background: #080706;
   display: flex;
@@ -2228,7 +2241,7 @@ section[id], #top { scroll-margin-top: 88px; }
   align-items: center;
   height: 100%;
   will-change: transform;
-  width: 340vw;
+  width: max-content;
 }
 
 .exp-panel {
@@ -2263,7 +2276,8 @@ section[id], #top { scroll-margin-top: 88px; }
   color: rgba(255, 255, 255, 0.038);
   letter-spacing: -0.04em;
   pointer-events: none;
-  select-none;
+  user-select: none;
+  -webkit-user-select: none;
   will-change: transform;
   z-index: 1;
 }
@@ -2371,13 +2385,96 @@ section[id], #top { scroll-margin-top: 88px; }
   background: rgba(224, 102, 44, 0.22);
 }
 
+@media (max-width: 768px) {
+  .exp-panel {
+    width: 90vw;
+    padding: 24px 18px;
+  }
+  .exp-panel--intro {
+    width: 86vw;
+  }
+  .exp-panel-title {
+    font-size: clamp(1.9rem, 7.5vw, 3rem);
+    line-height: 1.05;
+  }
+  .exp-panel-desc {
+    font-size: 0.9rem;
+    line-height: 1.55;
+    margin-bottom: 20px;
+  }
+  .exp-metrics-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+    padding-top: 16px;
+    margin-bottom: 20px;
+  }
+  .exp-footer {
+    padding: 12px 18px;
+  }
+  .exp-jump-pills {
+    gap: 6px;
+  }
+  .exp-jump-btn {
+    padding: 4px 10px;
+    font-size: 0.66rem;
+  }
+
+  /* About scroll-expand media mobile responsiveness */
+  #sem-media-content {
+    padding: 20px 18px;
+    overflow-y: auto;
+  }
+  .sem-content-top {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+    padding-bottom: 10px;
+  }
+  .sem-content-bottom {
+    padding-top: 14px;
+    gap: 12px;
+  }
+  .sem-summary {
+    font-size: 0.85rem;
+    line-height: 1.55;
+  }
+  .sem-actions {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+  .sem-actions .btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .exp-metrics-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+  .exp-panel {
+    width: 92vw;
+    padding: 20px 14px;
+  }
+  .exp-panel--intro {
+    width: 88vw;
+  }
+  .exp-footer span {
+    display: none;
+  }
+}
+
 /* ==========================================================================
    24. 3D Liquid Ribbon FlexCarousel (All 15 Projects Transition Effect)
    ========================================================================== */
 .flex-carousel {
   position: relative;
   width: 100%;
-  height: 100%;
+  height: 560px;
+  min-height: 560px;
+  border-radius: var(--r-xl);
   overflow: hidden;
   cursor: grab;
   touch-action: pan-y;
@@ -2386,6 +2483,14 @@ section[id], #top { scroll-margin-top: 88px; }
   -webkit-tap-highlight-color: transparent;
   overscroll-behavior: contain;
   outline: none;
+}
+
+.flex-carousel > canvas {
+  position: absolute !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  display: block;
 }
 
 .flex-carousel[data-hover='open'] {
@@ -2615,11 +2720,21 @@ section[id], #top { scroll-margin-top: 88px; }
 }
 
 @media (max-width: 768px) {
-  .work-carousel-stage {
+  .work-carousel-stage,
+  .flex-carousel {
     height: 480px;
+    min-height: 480px;
   }
   .work-carousel-hint {
     display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .work-carousel-stage,
+  .flex-carousel {
+    height: 400px;
+    min-height: 400px;
   }
 }
 

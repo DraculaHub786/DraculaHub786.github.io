@@ -19,7 +19,34 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..700&family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap">
-  <link rel="stylesheet" href="./styles.css?v=3.6">
+  <script>
+    (function() {
+      try {
+        var params = new URLSearchParams(window.location.search);
+        var m = params.get('motion');
+        if (m === 'reduce') {
+          localStorage.setItem('portfolio_motion', 'reduce');
+          document.documentElement.dataset.motion = 'reduce';
+        } else if (m === 'full') {
+          localStorage.setItem('portfolio_motion', 'full');
+          document.documentElement.dataset.motion = 'full';
+        } else if (m === 'system') {
+          localStorage.removeItem('portfolio_motion');
+        } else {
+          var saved = localStorage.getItem('portfolio_motion');
+          if (saved === 'reduce') {
+            document.documentElement.dataset.motion = 'reduce';
+          } else {
+            // Default to full rich 3D animations for this portfolio
+            document.documentElement.dataset.motion = 'full';
+          }
+        }
+      } catch (e) {
+        document.documentElement.dataset.motion = 'full';
+      }
+    })();
+  </script>
+  <link rel="stylesheet" href="./styles.css?v=3.9">
 </head>
 <body>
   <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
@@ -140,11 +167,6 @@
           <div class="hero__ring" aria-hidden="true"></div>
         </div>
       </div>
-
-      <a class="scroll-cue" href="#featured" aria-label="Scroll to featured projects">
-        <span class="scroll-cue__label">Scroll</span>
-        <span class="scroll-cue__track"><span class="scroll-cue__dot"></span></span>
-      </a>
     </section>
 
     <!-- ================= FEATURED STICKY 3D STACK ================= -->
@@ -551,6 +573,6 @@
     </div>
   </div>
 
-  <script src="./script.js?v=3.7"></script>
+  <script src="./script.js?v=3.9"></script>
 </body>
 </html>

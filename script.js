@@ -232,9 +232,22 @@ const FALLBACK_PROJECTS = [
   }
 ];
 
+function checkReducedMotion() {
+  const docMotion = document.documentElement.dataset.motion;
+  if (docMotion === 'full') return false;
+  if (docMotion === 'reduce') return true;
+  try {
+    const saved = localStorage.getItem('portfolio_motion');
+    if (saved === 'full') return false;
+    if (saved === 'reduce') return true;
+  } catch (_) {}
+  return false;
+}
+
 const state = {
   projects: FALLBACK_PROJECTS,
-  reducedMotion: window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  currentFilter: 'all',
+  reducedMotion: checkReducedMotion()
 };
 
 /* --------------------------------------------------------------------------
@@ -567,7 +580,7 @@ async function initAllProjectsCarousel() {
   if (!container || !state.projects || !state.projects.length) return;
 
   try {
-    const { initFlexCarousel } = await import('./flex-carousel.js');
+    const { initFlexCarousel } = await import('./flex-carousel.js?v=3.9');
 
     // Determine currently active filter from state, active chip, or URL
     const activeChip = $('.chip.is-active');
@@ -587,6 +600,7 @@ async function initAllProjectsCarousel() {
       }));
 
     window.flexCarouselInstance = initFlexCarousel(container, {
+      className: 'work-carousel-stage',
       items: filtered.length ? filtered : state.projects.map((p, idx) => ({
         src: imageOf(p),
         alt: p.title,
@@ -636,9 +650,14 @@ function setWorkViewMode(mode) {
     if (cardsWrap) cardsWrap.classList.add('cards--hidden');
     if (btnRibbon) btnRibbon.classList.add('is-active');
     if (btnGrid) btnGrid.classList.remove('is-active');
-    if (window.flexCarouselInstance && window.flexCarouselInstance.wake) {
-      window.flexCarouselInstance.wake();
-    }
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        if (window.flexCarouselInstance) {
+          if (window.flexCarouselInstance.resize) window.flexCarouselInstance.resize();
+          if (window.flexCarouselInstance.wake) window.flexCarouselInstance.wake();
+        }
+      });
+    });
   }
 }
 window.setWorkViewMode = setWorkViewMode;
@@ -1421,6 +1440,10 @@ function initExperienceJourney() {
   }
 
   window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('load', () => {
+    metrics = getMetrics();
+    onScroll();
+  }, { passive: true });
 
   jumpButtons.forEach(btn => {
     btn.addEventListener('click', (e) => {
@@ -1460,11 +1483,11 @@ function initScrollExpandMedia() {
     if (state.reducedMotion) return;
 
     const isMobile = window.innerWidth < 768;
-    const startW = isMobile ? 280 : 320;
-    const startH = isMobile ? 360 : 420;
+    const startW = isMobile ? Math.min(window.innerWidth * 0.82, 280) : 320;
+    const startH = isMobile ? Math.min(window.innerHeight * 0.48, 360) : 420;
 
-    const maxW = Math.min(window.innerWidth * 0.94, 1200);
-    const maxH = Math.min(window.innerHeight * 0.86, maxW / ASPECT_RATIO);
+    const maxW = isMobile ? window.innerWidth * 0.94 : Math.min(window.innerWidth * 0.94, 1200);
+    const maxH = isMobile ? Math.min(window.innerHeight * 0.84, 620) : Math.min(window.innerHeight * 0.86, maxW / ASPECT_RATIO);
     const endW = maxW;
     const endH = maxH;
 
